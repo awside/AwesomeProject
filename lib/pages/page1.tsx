@@ -19,6 +19,7 @@ export default function Page1() {
       <LabelBar text="SWAMP FOX" />
       <Spacer vertical={20} />
       <Fox size={55}/>
+      <Fox size={15}/>
     </Wrapper>
   )
 }
