@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Page } from '../components/Page'
-import Home from './page1'
-import Page1 from './page2'
-import { emitter } from '../Emitter'
+import { Page } from './components/page'
+import Home from './pages/home'
+import Page1 from './pages/page1'
+import { emitter } from './emitter'
 
 interface IPage {
   name: string

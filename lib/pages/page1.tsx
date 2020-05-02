@@ -3,9 +3,9 @@ import styled from 'styled-components/native'
 import { LabelBar, LabelTop } from '../components/labels'
 import { Spacer } from '../components/layout'
 import { TouchableWithoutFeedback } from 'react-native'
-import { changePage } from './Navigator'
+import { changePage } from '../navigator'
 
-export default function Home() {
+export default function Page1() {
   const Wrapper = styled.KeyboardAvoidingView`
     flex: 1;
     width: 100%;
@@ -17,11 +17,11 @@ export default function Home() {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        changePage('PAGE 1')
+        changePage('HOME')
       }}
     >
       <Wrapper>
-        <LabelTop text="Home" />
+        <LabelTop text="Page 1" />
         <LabelBar text="SWAMP FOX" />
         <Spacer vertical={20} />
       </Wrapper>
