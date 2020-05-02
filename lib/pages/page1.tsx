@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import { LabelBar, LabelTop } from '../components/labels'
 import { Spacer } from '../components/layout'
-import {Fox} from '../components/svg'
+import { TouchableWithoutFeedback } from 'react-native'
+import { changePage } from './Navigator'
 
 export default function Page1() {
   const Wrapper = styled.KeyboardAvoidingView`
@@ -14,15 +15,16 @@ export default function Page1() {
   `
 
   return (
-    <Wrapper>
-      <LabelTop text="PAGE 1" />
-      <LabelBar text="SWAMP FOX" />
-      <Spacer vertical={20} />
-      <Fox size={55}/>
-      <Fox size={15}/>
-    </Wrapper>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        changePage('PAGE 2')
+      }}
+    >
+      <Wrapper>
+        <LabelTop text="PAGE 1" />
+        <LabelBar text="SWAMP FOX" />
+        <Spacer vertical={20} />
+      </Wrapper>
+    </TouchableWithoutFeedback>
   )
 }
-
-
-

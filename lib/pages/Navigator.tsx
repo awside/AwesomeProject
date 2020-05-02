@@ -9,6 +9,10 @@ interface IPage {
   page: JSX.Element
 }
 
+export function changePage(page: 'PAGE 1' | 'PAGE 2') {
+  emitter.emit('change page', page)
+}
+
 export default function Navigator() {
   let pages: Array<IPage> = [
     {
@@ -32,16 +36,12 @@ export default function Navigator() {
 
   emitter.on('change page', (pageName: string) => {
     for (let i = 0; i < pages.length; i++) {
-      if ((pages[i].name = pageName)) {
+      if (pages[i].name == pageName) {
         setCurrentPage(pages[i].page)
-        break
+        return
       }
     }
   })
-
-  setTimeout(() => {
-    emitter.emit('change page', 'PAGE 1')
-  }, 2000)
 
   return currentPage
 }
