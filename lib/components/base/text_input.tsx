@@ -26,7 +26,7 @@ export function TextInput(props: {
   keyboardType?: 'email-address'
   secureTextEntry?: boolean
   textContentType?: 'emailAddress' | 'password' | 'newPassword'
-  onChangeText?: (text: string) => void
+  onChange?: (value: string) => void
 }) {
   const [text, setText] = useState('')
   let refTextInput: TextInputRN
@@ -54,7 +54,7 @@ export function TextInput(props: {
           secureTextEntry={props.secureTextEntry ?? false}
           onChangeText={(text) => {
             setText(text)
-            if (props.onChangeText) props.onChangeText(text)
+            if (props.onChange) props.onChange(text)
           }}
           value={text}
         />

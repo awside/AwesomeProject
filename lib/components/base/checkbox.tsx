@@ -18,7 +18,7 @@ const Text = styled.Text`
 
 export function CheckBox(props: {
   text: string
-  onToggle?: (value: boolean) => void
+  onChange?: (value: boolean) => void
 }) {
   const [state, setState] = useState({
     toggle: false,
@@ -33,13 +33,13 @@ export function CheckBox(props: {
             toggle: false,
             icon: 'checkbox-blank-outline',
           })
-          if (props.onToggle) props.onToggle(true)
+          if (props.onChange) props.onChange(false)
         } else {
           setState({
             toggle: true,
             icon: 'checkbox-intermediate',
           })
-          if (props.onToggle) props.onToggle(false)
+          if (props.onChange) props.onChange(true)
         }
       }}
     >

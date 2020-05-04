@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 
 export function LabelTop(props: { text?: String }) {
   const Title = styled.Text`
-    font-size: 50px;
+    font-size: 32px;
     font-weight: bold;
     color: #707070;
   `

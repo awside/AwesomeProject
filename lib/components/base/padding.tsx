@@ -16,7 +16,6 @@ export function Padding(props: {
     <View
       style={{
         width: '100%',
-        height: '100%',
         paddingLeft: left,
         paddingRight: right,
         paddingTop: top,
