@@ -16,7 +16,6 @@ export function LabelBar(props: { text?: String }) {
     width: 100%;
     flex-direction: row;
     align-items: center;
-    padding: 0px 20px;
   `
 
   const Thickline = styled.View`

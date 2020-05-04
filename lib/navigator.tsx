@@ -3,6 +3,7 @@ import { Page } from './components/page'
 import Home from './pages/home'
 import Page1 from './pages/page1'
 import { emitter } from './emitter'
+import { StatusBar, View } from 'react-native'
 
 interface IPage {
   name: string
@@ -43,5 +44,14 @@ export default function Navigator() {
     }
   })
 
-  return currentPage
+  return (
+    <View
+      style={{
+        flex: 1,
+      }}
+    >
+      <StatusBar barStyle="dark-content" />
+      {currentPage}
+    </View>
+  )
 }

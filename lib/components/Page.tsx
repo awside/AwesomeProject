@@ -5,6 +5,7 @@ export function Page(props: { children?: any }) {
   const Wrapper = styled.SafeAreaView`
     flex: 1;
     background-color: #e0dfd7;
+    /* background-color: white; */
     align-items: center;
     justify-content: flex-start;
   `
