@@ -7,7 +7,7 @@ const Wrapper = styled.View`
   padding: 0px 20px;
   justify-content: center;
   align-items: center;
-  align-self: center;
+  /* align-self: center; */
   border-radius: 6px;
 `
 

@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
-import { Spacer } from '../components/base/layout'
-import { Nav } from '../navigator'
-import { Button } from '../components/base/button'
-import { Page } from '../components/base/page'
+import { getNanoid } from '../helper'
+import { emitter } from '../emitter'
+import { View } from 'react-native'
+import ScrollData from '../components/unique/scrolldata'
+import { StudentData } from '../data/student_data'
+import { Student } from '../components/unique/student'
 
 let studentData = [
   {
@@ -26,16 +28,30 @@ let studentData = [
   },
 ]
 
+const ScrollView = styled.ScrollView`
+  padding: 0px 10px;
+`
+const Header = styled.View`
+  height: 50px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 20px;
+`
+
 export default function Students() {
-  return (
-    <Page title="Students">
-      <Spacer vertical={20} />
-      <Button
-        text="Students"
-        onPress={() => {
-          Nav.changePage('Create_Student')
-        }}
-      />
-    </Page>
-  )
+  const [content, setContent] = useState([])
+
+  emitter.on('StudentDataUpdate', () => {
+    let a: Array<JSX.Element> = []
+    a.push()
+    for (let i = 0; i < StudentData.data.students.length; i++) {
+      let rank = StudentData.data.students[i].rank
+      let lastName = StudentData.data.students[i].lastName
+      a.push(<Student key={getNanoid()} rank={rank} name={lastName} />)
+    }
+    setContent(a)
+  })
+
+  return <ScrollData title="Students" content={content} />
 }

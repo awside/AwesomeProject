@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
-import { Page } from './components/base/page'
-import Home from './pages/home'
-import Page1 from './pages/students'
+import { Home } from './pages/home'
 import { emitter } from './emitter'
 import { StatusBar, View } from 'react-native'
 import CreateStudent from './pages/create_student'
 import Students from './pages/students'
+import { StudentData } from './data/student_data'
+import { Page } from './components/unique/page'
+
+export enum PAGES {
+  HOME = 'Home',
+  STUDENTS = 'Students',
+  CREATE_STUDENTS = 'Create_Student',
+}
 
 interface IPage {
   name: string
   page: JSX.Element
-}
-
-export const Nav = {
-  changePage: (page: 'Home' | 'Students' | 'Create_Student') => {
-    emitter.emit('change page', page)
-  },
 }
 
 export default function Navigator() {
@@ -33,15 +33,21 @@ export default function Navigator() {
       page: <CreateStudent />,
     },
   ]
-  const [currentPage, setCurrentPage] = useState(pages[2].page)
 
-  emitter.on('change page', (pageName: string) => {
+  function getPage(page: PAGES) {
     for (let i = 0; i < pages.length; i++) {
-      if (pages[i].name == pageName) {
-        setCurrentPage(pages[i].page)
-        return
+      if (pages[i].name == page) {
+        return pages[i].page
       }
     }
+  }
+
+  StudentData.retrieve()
+
+  const [content, setContent] = useState(getPage(PAGES.HOME))
+
+  emitter.on('change page', (page: PAGES) => {
+    setContent(getPage(page))
   })
 
   return (
@@ -51,7 +57,7 @@ export default function Navigator() {
       }}
     >
       <StatusBar barStyle="dark-content" />
-      {currentPage}
+      <Page>{content}</Page>
     </View>
   )
 }

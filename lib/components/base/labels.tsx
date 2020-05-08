@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components/native'
+import { Colors } from './color'
 
 export function LabelTop(props: { text?: String }) {
   const Title = styled.Text`
     font-size: 32px;
     font-weight: bold;
-    color: #707070;
+    color:  ${Colors.text};
   `
 
   return <Title>{props.text}</Title>
@@ -27,7 +28,7 @@ export function LabelBar(props: { text?: String }) {
   const Title = styled.Text`
     font-size: 11px;
     font-weight: bold;
-    color: #707070;
+    color:  ${Colors.text};
     padding: 0px 5px;
   `
 

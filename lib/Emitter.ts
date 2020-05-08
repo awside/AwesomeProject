@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid/non-secure'
+import { PAGES } from './navigator'
 
 interface IListener {
   id: string
@@ -31,5 +32,9 @@ export const emitter = {
       }
       listenerList = a
     })
+  },
+
+  changePage: (page: PAGES) => {
+    emitter.emit('change page', page)
   },
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { TouchableWithoutFeedback } from 'react-native'
 import styled from 'styled-components/native'
-import { Spacer } from './layout'
+import { Spacer } from './spacer'
 
 const Wrapper = styled.View`
   flex-direction: row;

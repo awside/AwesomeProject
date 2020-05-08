@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
-import { Spacer } from '../components/base/layout'
+import { Spacer } from '../components/base/spacer'
 import { TextInput } from '../components/base/text_input'
 import { Button } from '../components/base/button'
-import { Nav } from '../navigator'
 import { Padding } from '../components/base/padding'
 import { CheckBox } from '../components/base/checkbox'
-import { Page } from '../components/base/page'
+import { Page } from '../components/unique/page'
 import { getNanoid } from '../helper'
+import { emitter } from '../emitter'
 
 const Row = styled.View`
   flex-direction: row;
@@ -25,7 +25,6 @@ export default function CreateStudent() {
   let recycle: boolean
 
   return (
-    <Page title="Create Student">
       <Padding horizontal={20}>
         <Spacer vertical={20} />
         <TextInput
@@ -71,30 +70,29 @@ export default function CreateStudent() {
           />
         </Row>
       </Padding>
-      <Spacer vertical={50} />
-      <Button
-        text="Create Student"
-        onPress={() => {
-          console.log({
-            id: getNanoid(),
-            rank: rank ?? '',
-            lastName: lastName ?? '',
-            firstName: firstName ?? '',
-            mos: mos ?? '',
-            ranger: ranger ?? false,
-            recycle: recycle ?? false,
-          })
-          Nav.changePage('Students')
-        }}
-      />
-      <Spacer vertical={20} />
-      <Button
-        text="Cancel"
-        naked={true}
-        onPress={() => {
-          Nav.changePage('Students')
-        }}
-      />
-    </Page>
+      // <Spacer vertical={50} />
+      // <Button
+      //   text="Create Student"
+      //   onPress={() => {
+      //     console.log({
+      //       id: getNanoid(),
+      //       rank: rank ?? '',
+      //       lastName: lastName ?? '',
+      //       firstName: firstName ?? '',
+      //       mos: mos ?? '',
+      //       ranger: ranger ?? false,
+      //       recycle: recycle ?? false,
+      //     })
+      //     emitter.changePage('Students')
+      //   }}
+      // />
+      // <Spacer vertical={20} />
+      // <Button
+      //   text="Cancel"
+      //   naked={true}
+      //   onPress={() => {
+      //     emitter.changePage('Students')
+      //   }}
+      // />
   )
 }
