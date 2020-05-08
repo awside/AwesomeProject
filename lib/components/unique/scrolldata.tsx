@@ -27,10 +27,12 @@ const Item = styled.View`
   border: 1px solid ${Colors.line};
 `
 
-export default function ScrollData(props: {
-  title: string
-  content: [{ text: string; goToPage: PAGES }]
-}) {
+export interface ItemData {
+  text: string
+  goToPage: PAGES
+}
+
+export default function ScrollData(props: { title: string; content: Array<ItemData> }) {
   let a: Array<JSX.Element> = []
   props.content.forEach((e) => {
     a.push(

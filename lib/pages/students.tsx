@@ -3,9 +3,10 @@ import styled from 'styled-components/native'
 import { getNanoid } from '../helper'
 import { emitter } from '../emitter'
 import { View } from 'react-native'
-import ScrollData from '../components/unique/scrolldata'
+import ScrollData, { ItemData } from '../components/unique/scrolldata'
 import { StudentData } from '../data/student_data'
 import { Student } from '../components/unique/student'
+import { PAGES } from '../navigator'
 
 let studentData = [
   {
@@ -40,15 +41,16 @@ const Header = styled.View`
 `
 
 export default function Students() {
-  const [content, setContent] = useState([])
+  let a: Array<ItemData> = []
+  const [content, setContent] = useState(a)
 
   emitter.on('StudentDataUpdate', () => {
-    let a: Array<JSX.Element> = []
+    let a: Array<ItemData> = []
     a.push()
     for (let i = 0; i < StudentData.data.students.length; i++) {
       let rank = StudentData.data.students[i].rank
       let lastName = StudentData.data.students[i].lastName
-      a.push(<Student key={getNanoid()} rank={rank} name={lastName} />)
+      a.push({text: `${rank} ${lastName}`, goToPage: PAGES.HOME})
     }
     setContent(a)
   })
