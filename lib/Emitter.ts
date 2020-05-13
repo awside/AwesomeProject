@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid/non-secure'
-import { PAGES } from './navigator'
 
 interface IListener {
   id: string
@@ -30,11 +29,21 @@ export const emitter = {
       if (id != e.id) {
         a.push(e)
       }
-      listenerList = a
+      listenerList = a 
     })
   },
+}
 
-  changePage: (page: PAGES) => {
-    emitter.emit('change page', page)
+export type pages = 'Home' | 'Students' | 'CreateStudent'
+
+export const NavEmitter = {
+  goto: (page: pages) => {
+    emitter.emit('goto page', page)
   },
+}
+
+export const FooterEmitter = {
+  back: (page: pages | undefined) => {
+    emitter.emit('goto back', page)
+  }
 }

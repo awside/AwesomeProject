@@ -13,19 +13,16 @@ export const StudentData = {
       // Error saving data
     }
   },
-  retrieve: async () => {
+  retrieve: async (callback: () => void) => {
     try {
       const value = await AsyncStorage.getItem('StudentData')
       if (value !== null) {
         StudentData.data = JSON.parse(value)
-        StudentData.broadcastUpdate()
+        callback()
       }
     } catch (error) {
       // Error retrieving data
     }
-  },
-  broadcastUpdate: () => {
-    emitter.emit('StudentDataUpdate')
   }
 }
 

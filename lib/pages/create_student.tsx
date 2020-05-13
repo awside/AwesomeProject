@@ -2,12 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import { Spacer } from '../components/base/spacer'
 import { TextInput } from '../components/base/text_input'
-import { Button } from '../components/base/button'
 import { Padding } from '../components/base/padding'
 import { CheckBox } from '../components/base/checkbox'
-import { Page } from '../components/unique/page'
-import { getNanoid } from '../helper'
-import { emitter } from '../emitter'
 
 const Row = styled.View`
   flex-direction: row;
@@ -16,7 +12,7 @@ const Row = styled.View`
   height: 44px;
 `
 
-export default function CreateStudent() {
+export function CreateStudent() {
   let rank: string
   let lastName: string
   let firstName: string

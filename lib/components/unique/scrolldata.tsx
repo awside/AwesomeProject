@@ -5,8 +5,7 @@ import { Spacer } from '../base/spacer'
 import { Colors } from '../base/color'
 import { TouchableWithoutFeedback } from 'react-native'
 import { getNanoid } from '../../helper'
-import { emitter } from '../../emitter'
-import { PAGES } from '../../navigator'
+import { pages, NavEmitter } from '../../emitter'
 
 const ScrollView = styled.ScrollView`
   padding: 0px 10px;
@@ -27,19 +26,22 @@ const Item = styled.View`
   border: 1px solid ${Colors.line};
 `
 
-export interface ItemData {
+export interface IScrollDataItem {
   text: string
-  goToPage: PAGES
+  page: pages
 }
 
-export default function ScrollData(props: { title: string; content: Array<ItemData> }) {
+export default function ScrollData(props: {
+  title: string
+  content: Array<IScrollDataItem>
+}) {
   let a: Array<JSX.Element> = []
   props.content.forEach((e) => {
     a.push(
       <TouchableWithoutFeedback
         key={getNanoid()}
         onPress={() => {
-          emitter.changePage(e.goToPage)
+          NavEmitter.goto(e.page)
         }}
       >
         <Item>
