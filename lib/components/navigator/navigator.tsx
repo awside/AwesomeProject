@@ -5,8 +5,8 @@ import { Footer } from './footer'
 import { Colors } from '../base/color'
 import { StudentData } from '../../data/student_data'
 import { pages, NavEmitter, emitter, FooterEmitter } from '../../emitter'
-import { Home } from '../../pages/home'
-import { Students } from '../../pages/students'
+import { Home } from './pages/home'
+import { Students } from './pages/students'
 
 const pageList: Array<{
   name: pages

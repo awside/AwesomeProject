@@ -6,25 +6,7 @@ import { Colors } from '../base/color'
 import { TouchableWithoutFeedback } from 'react-native'
 import { getNanoid } from '../../helper'
 import { pages, NavEmitter } from '../../emitter'
-
-const ScrollView = styled.ScrollView`
-  padding: 0px 10px;
-`
-const Header = styled.View`
-  height: 50px;
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 20px;
-`
-
-const Item = styled.View`
-  height: 50px;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 20px;
-  border: 1px solid ${Colors.line};
-`
+import { Button } from '../base/button'
 
 export interface IScrollDataItem {
   text: string
@@ -49,15 +31,40 @@ export default function ScrollData(props: {
         </Item>
       </TouchableWithoutFeedback>
     )
+    a.push(<Spacer vertical={5} />)
   })
+  a.pop()
 
   return (
     <ScrollView showsVerticalScrollIndicator={true}>
       <Header>
-        <TextStyles.H2>{props.title}</TextStyles.H2>
+        <TextStyles.H1>{props.title}</TextStyles.H1>
       </Header>
       {a}
+      <Spacer vertical={20} />
+      <Button text="ADD" />
       <Spacer vertical={500} />
     </ScrollView>
   )
 }
+
+const ScrollView = styled.ScrollView`
+  padding: 0px 10px;
+`
+const Header = styled.View`
+  height: 50px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 20px;
+`
+
+const Item = styled.View`
+  height: 50px;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 20px;
+  /* border: 1px solid ${Colors.line}; */
+  background-color: ${Colors.component};
+  border-radius: 4px;
+`

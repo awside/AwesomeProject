@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
-import ScrollData, { IScrollDataItem } from '../components/unique/scrolldata'
-import { StudentData } from '../data/student_data'
-import { FooterEmitter, pages } from '../emitter'
+import ScrollData, { IScrollDataItem } from '../../unique/scrolldata'
+import { StudentData } from '../../../data/student_data'
+import { FooterEmitter, pages } from '../../../emitter'
 
 let studentData = [
   {

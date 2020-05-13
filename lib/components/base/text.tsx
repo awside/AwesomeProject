@@ -17,8 +17,8 @@ export const TextStyles = {
   `,
   H3: styled.Text`
     font-size: ${TextSize * 0.6}px;
-    color:  ${Colors.text};
-    /* font-weight: bold; */
+    color:  ${Colors.textLight};
+    font-weight: bold;
   `,
   Tiny: styled.Text`
     font-size: ${TextSize * 0.4}px;
