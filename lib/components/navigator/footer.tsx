@@ -20,23 +20,34 @@ const Box = styled.View`
 `
 
 export function Footer() {
+  const [home, setHome] = useState<pages | undefined>()
   const [back, setBack] = useState<pages | undefined>()
 
-  emitter.on('goto back', (page: pages | undefined) => {
+  emitter.on('setHome', (page: pages | undefined) => {
+    setHome(page)
+  })
+
+  emitter.on('setBack', (page: pages | undefined) => {
     setBack(page)
   })
 
   return (
     <Footer_>
-      <TouchableWithoutFeedback
-        onPress={() => {
-          NavEmitter.goto('Home')
-        }}
-      >
-        <Box>
-          <MaterialCommunityIcons name="home-outline" size={24} color="black" />
-        </Box>
-      </TouchableWithoutFeedback>
+      {home && (
+        <TouchableWithoutFeedback
+          onPress={() => {
+            NavEmitter.goto(home)
+          }}
+        >
+          <Box>
+            <MaterialCommunityIcons
+              name="home-outline"
+              size={24}
+              color="black"
+            />
+          </Box>
+        </TouchableWithoutFeedback>
+      )}
       {back && (
         <TouchableWithoutFeedback
           onPress={() => {

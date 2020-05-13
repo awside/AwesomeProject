@@ -34,6 +34,7 @@ export function Students() {
     a.push({ text: `${rank} ${lastName}`, page: 'Home' })
   }
 
+  FooterEmitter.home('Home')
   FooterEmitter.back('Home')
 
   return <ScrollData title="Students" content={a} />

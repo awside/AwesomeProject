@@ -29,7 +29,7 @@ export const emitter = {
       if (id != e.id) {
         a.push(e)
       }
-      listenerList = a 
+      listenerList = a
     })
   },
 }
@@ -43,7 +43,10 @@ export const NavEmitter = {
 }
 
 export const FooterEmitter = {
+  home: (page: pages | undefined) => {
+    emitter.emit('setHome', page)
+  },
   back: (page: pages | undefined) => {
-    emitter.emit('goto back', page)
-  }
+    emitter.emit('setBack', page)
+  },
 }
