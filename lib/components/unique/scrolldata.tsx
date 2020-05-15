@@ -4,24 +4,23 @@ import { TextStyles } from '../base/text'
 import { Spacer } from '../base/spacer'
 import { Colors } from '../base/color'
 import { TouchableWithoutFeedback } from 'react-native'
-import { getNanoid } from '../../helper'
-import { pages, NavEmitter } from '../../emitter'
 import { Button } from '../base/button'
-
-export interface IScrollDataItem {
-  text: string
-  page: pages
-}
+import { nanoid } from 'nanoid/non-secure'
+import { pages, NavEmitter } from '../../framework/navigator/nav_emitter'
 
 export default function ScrollData(props: {
   title: string
-  content: Array<IScrollDataItem>
+  content: Array<{
+    text: string
+    page: pages
+  }>
 }) {
   let a: Array<JSX.Element> = []
   props.content.forEach((e) => {
+    console.log(nanoid())
     a.push(
       <TouchableWithoutFeedback
-        key={getNanoid()}
+        key={nanoid()}
         onPress={() => {
           NavEmitter.goto(e.page)
         }}
@@ -31,7 +30,7 @@ export default function ScrollData(props: {
         </Item>
       </TouchableWithoutFeedback>
     )
-    a.push(<Spacer vertical={5} />)
+    a.push(<Spacer vertical={5} key={nanoid()} />)
   })
   a.pop()
 
@@ -42,7 +41,6 @@ export default function ScrollData(props: {
       </Header>
       {a}
       <Spacer vertical={20} />
-      <Button text="ADD" />
       <Spacer vertical={500} />
     </ScrollView>
   )

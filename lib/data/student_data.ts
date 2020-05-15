@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-import { emitter } from '../emitter'
+import { emitter } from '../my_modules/emitter'
 
 export const StudentData = {
   data: <IStudents>{},

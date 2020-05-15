@@ -33,20 +33,3 @@ export const emitter = {
     })
   },
 }
-
-export type pages = 'Home' | 'Students' | 'CreateStudent'
-
-export const NavEmitter = {
-  goto: (page: pages) => {
-    emitter.emit('goto page', page)
-  },
-}
-
-export const FooterEmitter = {
-  home: (page: pages | undefined) => {
-    emitter.emit('setHome', page)
-  },
-  back: (page: pages | undefined) => {
-    emitter.emit('setBack', page)
-  },
-}

@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
-import { Spacer } from '../../base/spacer'
-import { TextInput } from '../../base/text_input'
-import { Padding } from '../../base/padding'
-import { CheckBox } from '../../base/checkbox'
+import { Padding } from '../components/base/padding'
+import { Spacer } from '../components/base/spacer'
+import { TextInput, CheckBox } from 'react-native'
 
 const Row = styled.View`
   flex-direction: row;

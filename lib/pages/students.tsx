@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
-import ScrollData, { IScrollDataItem } from '../../unique/scrolldata'
-import { StudentData } from '../../../data/student_data'
-import { FooterEmitter, pages } from '../../../emitter'
+import ScrollData from '../components/unique/scrolldata'
+import { pages } from '../framework/navigator/nav_emitter'
+import { StudentData } from '../data/student_data'
+import { FooterEmitter } from '../framework/footer/footer_emitter'
 
 let studentData = [
   {
@@ -26,7 +27,10 @@ let studentData = [
 ]
 
 export function Students() {
-  let a: Array<IScrollDataItem> = []
+  let a: Array<{
+    text: string
+    page: pages
+  }> = []
   a.push()
   for (let i = 0; i < StudentData.data.students.length; i++) {
     let rank = StudentData.data.students[i].rank
@@ -36,6 +40,12 @@ export function Students() {
 
   FooterEmitter.home('Home')
   FooterEmitter.back('Home')
+  FooterEmitter.button('ADD', () => {})
 
-  return <ScrollData title="Students" content={a} />
+  return (
+    <ScrollData
+      title="Students"
+      content={a}
+    />
+  )
 }

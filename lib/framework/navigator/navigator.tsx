@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/native'
 import { StatusBar } from 'react-native'
-import { Footer } from './footer'
-import { Colors } from '../base/color'
+import { Footer } from '../footer/footer'
+import { Colors } from '../../components/base/color'
 import { StudentData } from '../../data/student_data'
-import { pages, NavEmitter, emitter, FooterEmitter } from '../../emitter'
-import { Home } from './pages/home'
-import { Students } from './pages/students'
+import { emitter } from '../../my_modules/emitter'
+import { Home } from '../../pages/home'
+import { Students } from '../../pages/students'
+import { pages, NavEmitter } from './nav_emitter'
+import { FooterEmitter } from '../footer/footer_emitter'
 
 const pageList: Array<{
   name: pages
@@ -31,7 +33,7 @@ export function Navigator() {
     })
   }, [])
 
-  emitter.on('goto page', (page: pages) => {
+  emitter.on('@Nav_goto', (page: pages) => {
     for (let i = 0; i < pageList.length; i++) {
       if (pageList[i].name == page) {
         FooterEmitter.home(undefined)

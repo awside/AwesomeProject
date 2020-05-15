@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import { nanoid } from 'nanoid/non-secure'
-import { emitter } from '../../emitter'
+import { emitter } from '../../my_modules/emitter'
 
 const TLB = {
   Wrapper: styled.View`

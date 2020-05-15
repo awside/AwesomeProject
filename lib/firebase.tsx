@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { nanoid } from 'nanoid/non-secure'
-import { emitter } from './emitter'
+import { emitter } from './my_modules/emitter'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { firebaseConfig } from '../firebaseConfig'
