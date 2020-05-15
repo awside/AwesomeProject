@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/native'
 import { StatusBar } from 'react-native'
 import { Footer } from '../footer/footer'
-import { Colors } from '../../components/base/color'
 import { StudentData } from '../../data/student_data'
 import { emitter } from '../../my_modules/emitter'
 import { Home } from '../../pages/home'
 import { Students } from '../../pages/students'
 import { pages, NavEmitter } from './nav_emitter'
 import { FooterEmitter } from '../footer/footer_emitter'
+import { THEME } from '../theme'
 
 const pageList: Array<{
   name: pages
@@ -36,8 +36,7 @@ export function Navigator() {
   emitter.on('@Nav_goto', (page: pages) => {
     for (let i = 0; i < pageList.length; i++) {
       if (pageList[i].name == page) {
-        FooterEmitter.home(undefined)
-        FooterEmitter.back(undefined)
+        FooterEmitter.clear()
         setPage(pageList[i].page)
         return
       }
@@ -55,7 +54,7 @@ export function Navigator() {
 
 const SafeArea = styled.SafeAreaView`
   flex: 1;
-  background-color: ${Colors.background};
+  background-color: ${THEME.colors.background};
   align-items: center;
 `
 

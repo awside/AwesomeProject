@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
-import { TextStyles } from '../base/text'
 import { Spacer } from '../base/spacer'
-import { Colors } from '../base/color'
 import { TouchableWithoutFeedback } from 'react-native'
 import { Button } from '../base/button'
 import { nanoid } from 'nanoid/non-secure'
 import { pages, NavEmitter } from '../../framework/navigator/nav_emitter'
+import { THEME } from '../../framework/theme'
 
 export default function ScrollData(props: {
   title: string
@@ -25,7 +24,9 @@ export default function ScrollData(props: {
         }}
       >
         <Item>
-          <TextStyles.H3>{e.text}</TextStyles.H3>
+          <THEME.text.heading style={{ color: THEME.colors.textLight }}>
+            {e.text}
+          </THEME.text.heading>
         </Item>
       </TouchableWithoutFeedback>
     )
@@ -36,7 +37,7 @@ export default function ScrollData(props: {
   return (
     <ScrollView showsVerticalScrollIndicator={true}>
       <Header>
-        <TextStyles.H1>{props.title}</TextStyles.H1>
+        <THEME.text.title>{props.title}</THEME.text.title>
       </Header>
       {a}
       <Spacer vertical={20} />
@@ -61,7 +62,7 @@ const Item = styled.View`
   flex-direction: row;
   align-items: center;
   padding-left: 20px;
-  /* border: 1px solid ${Colors.line}; */
-  background-color: ${Colors.component};
+  /* border: .5px solid ${THEME.colors.line};  */
+  background-color: ${THEME.colors.component};
   border-radius: 4px;
 `

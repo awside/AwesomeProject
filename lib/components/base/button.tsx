@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
-import { TouchableWithoutFeedback, View } from 'react-native'
-import { Colors } from './color'
+import { TouchableWithoutFeedback } from 'react-native'
+import { THEME } from '../../framework/theme'
 
 const Wrapper = styled.View`
   height: 44px;
@@ -13,7 +13,7 @@ const Wrapper = styled.View`
 `
 
 const Text = styled.Text`
-  color: ${Colors.button};
+  color: ${THEME.colors.button};
   font-size: 20px;
   font-weight: bold;
 `

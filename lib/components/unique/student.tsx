@@ -1,22 +1,21 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { TextStyles } from '../base/text'
-import { Colors } from '../base/color'
+import { THEME } from '../../framework/theme'
 
 const StudentContainer = styled.View`
   height: 50px;
   flex-direction: row;
   align-items: center;
   padding-left: 20px;
-  border: 1px solid ${Colors.line};
+  border: 1px solid ${THEME.colors.line};
 `
 
 export function Student(props: { rank: string; name: string }) {
   return (
     <StudentContainer>
-      <TextStyles.H3>{props.rank + ' '}</TextStyles.H3>
-      <TextStyles.H3>{props.name}</TextStyles.H3>
+      <THEME.text.body>{props.rank + ' '}</THEME.text.body>
+      <THEME.text.body>{props.name}</THEME.text.body>
     </StudentContainer>
   )
 }
@@ -26,15 +25,15 @@ function CheckBox(props: { status: 'blank' | 'red' | 'green' }) {
   let name: string
   switch (props.status) {
     case 'blank':
-      color = Colors.text
+      color = THEME.colors.text
       name = 'checkbox-blank-outline'
       break
     case 'red':
-      color = Colors.red
+      color = THEME.colors.red
       name = 'checkbox-intermediate'
       break
     case 'green':
-      color = Colors.green
+      color = THEME.colors.green
       name = 'checkbox-intermediate'
       break
   }
