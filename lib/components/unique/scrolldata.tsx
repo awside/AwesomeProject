@@ -17,7 +17,6 @@ export default function ScrollData(props: {
 }) {
   let a: Array<JSX.Element> = []
   props.content.forEach((e) => {
-    console.log(nanoid())
     a.push(
       <TouchableWithoutFeedback
         key={nanoid()}
