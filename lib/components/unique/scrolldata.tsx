@@ -8,7 +8,6 @@ import { pages, NavEmitter } from '../../framework/navigator/nav_emitter'
 import { THEME } from '../../framework/theme'
 
 export default function ScrollData(props: {
-  title: string
   content: Array<{
     text: string
     page: pages
@@ -36,9 +35,6 @@ export default function ScrollData(props: {
 
   return (
     <ScrollView showsVerticalScrollIndicator={true}>
-      <Header>
-        <THEME.text.title>{props.title}</THEME.text.title>
-      </Header>
       {a}
       <Spacer vertical={20} />
       <Spacer vertical={500} />
@@ -49,20 +45,13 @@ export default function ScrollData(props: {
 const ScrollView = styled.ScrollView`
   padding: 0px 10px;
 `
-const Header = styled.View`
-  height: 50px;
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 20px;
-`
 
 const Item = styled.View`
   height: 50px;
   flex-direction: row;
   align-items: center;
   padding-left: 20px;
-  border: 1px solid ${THEME.colors.text}; 
+  border: 1px solid ${THEME.colors.text};
   background-color: ${THEME.colors.component};
   border-radius: 3px;
 `

@@ -18,6 +18,9 @@ export const emitter = {
   },
 
   on: (name: string, callback: (...args: any[]) => void): string => {
+    listenerList.forEach((e) => {
+      if (e.name == name) return
+    })
     let id = nanoid()
     listenerList.push({ id: id, name: name, callback: callback })
     return id

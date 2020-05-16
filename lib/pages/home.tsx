@@ -4,13 +4,25 @@ import ScrollData from '../components/unique/scrolldata'
 import { FooterEmitter } from '../framework/footer/footer_emitter'
 
 export const Home = () => {
-
-  FooterEmitter.home('on')
+  FooterEmitter.home(false)
 
   return (
     <ScrollData
-      title="Home"
-      content={[{ text: 'Students', page: 'Students' }]}
+      content={[
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+        { text: 'Students', page: 'Students' },
+      ]}
     />
   )
 }

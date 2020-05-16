@@ -5,11 +5,14 @@ class _THEME {
 
   colors: { [key: string]: string } = {
     background: '#33372F',
+    backgroundTransparent: '#8033372F',
     component: '#4F554E',
+    line: '#4F554E',
+    fade: '#4F554E',
     text: '#E6E4E6',
-    green: '#20BF55',
+    icon: '#E6E4E6',
     red: '#ED6A5A',
-    line: '#474448',
+    green: '#20BF55',
     blue: '#227C9D',
   }
 
@@ -40,7 +43,7 @@ class _THEME {
       font-weight: bold;
     `,
     CAPTION: styled.Text`
-      font-size: ${this.#textSize * 0.4}px;
+      font-size: ${this.#textSize * 0.33}px;
       color: ${this.colors.text};
       font-weight: bold;
       text-transform: uppercase;

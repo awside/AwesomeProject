@@ -1,136 +1,263 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/native'
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { TouchableWithoutFeedback, StyleProp, TextStyle } from 'react-native'
+import {
+  MaterialIcons,
+  MaterialCommunityIcons,
+  FontAwesome,
+  FontAwesome5,
+  Feather,
+  Ionicons,
+} from '@expo/vector-icons'
+import { TouchableWithoutFeedback } from 'react-native'
 import { emitter } from '../../my_modules/emitter'
 import { pages, NavEmitter } from '../navigator/nav_emitter'
 import { THEME } from '../theme'
+import SafeAreaView from 'react-native-safe-area-view'
 
 export function Footer() {
-  const [home, setHome] = useState<pages | undefined>()
-  const [back, setBack] = useState<pages | undefined>()
-  const [button1, setButton1] = useState<
-    | {
-        text?: string
-        style?: StyleProp<TextStyle>
-        action?: () => void
-      }
-    | undefined
-  >()
-  const [button2, setButton2] = useState<
-    | {
-        text?: string
-        style?: StyleProp<TextStyle>
-        action?: () => void
-      }
-    | undefined
-  >()
+  const [home, setHome] = useState<pages>()
+  const [back, setBack] = useState<pages>()
+  const [trash, setTrash] = useState<{ action: () => void }>()
+  const [add, setAdd] = useState<{ action: () => void }>()
+  const [edit, setEdit] = useState<{ action: () => void }>()
+  const [cancel, setCancel] = useState<{ action: () => void }>()
+  const [confirm, setConfirm] = useState<{ action: () => void }>()
 
-  emitter.on('@Footer-setHome', (status: boolean) => {
-    setHome(status ? 'Home' : undefined)
-  })
-
-  emitter.on('@Footer-setBack', (page: pages | undefined) => {
-    setBack(page)
-  })
-
-  emitter.on(
-    '@Footer-setButton1',
-    (options?: {
-      text: string
-      style: StyleProp<TextStyle>
-      action: () => void
-    }) => {
-      if (!options) {
-        setButton1(undefined)
-        return
-      }
-      setButton1(options)
-    }
-  )
-
-  emitter.on(
-    '@Footer-setButton2',
-    (options?: {
-      text: string
-      style: StyleProp<TextStyle>
-      action: () => void
-    }) => {
-      if (!options) {
-        setButton2(undefined)
-        return
-      }
-      setButton2(options)
-    }
-  )
+  useEffect(() => {
+    emitter.on('@Footer-setHome', (status: boolean) => {
+      setHome(status ? 'Home' : undefined)
+    })
+    emitter.on('@Footer-setBack', (page?: pages) => {
+      setBack(page)
+    })
+    emitter.on('@Footer-setTrash', (action?: () => void) => {
+      setTrash(action ? { action: action } : undefined)
+    })
+    emitter.on('@Footer-setAdd', (action?: () => void) => {
+      setAdd(action ? { action: action } : undefined)
+    })
+    emitter.on('@Footer-setEdit', (action?: () => void) => {
+      setEdit(action ? { action: action } : undefined)
+    })
+    emitter.on('@Footer-setCancel', (action?: () => void) => {
+      setCancel(action ? { action: action } : undefined)
+    })
+    emitter.on('@Footer-setConfirm', (action?: () => void) => {
+      setConfirm(action ? { action: action } : undefined)
+    })
+  }, [])
 
   return (
-    <Styles.Wrapper>
-      <Styles.LeftSide></Styles.LeftSide>
-      <HomeButton
-        color={THEME.colors.text}
-        onPress={() => {
-          if (home) NavEmitter.goto('Home')
-        }}
-      />
-      <BackButton
-        color={THEME.colors.text}
-        onPress={() => {
-          if (back) NavEmitter.goto(back)
-        }}
-      />
-    </Styles.Wrapper>
+      <Styles.BigWrapper pointerEvents="box-none">
+        <Styles.Wrapper>
+          <Styles.LeftSide>
+            <HomeButton
+              fade={!!home}
+              onPress={() => {
+                if (home) NavEmitter.goto('Home')
+              }}
+            />
+            <BackButton
+              fade={!!home}
+              onPress={() => {
+                if (back) NavEmitter.goto(back)
+              }}
+            />
+          </Styles.LeftSide>
+          <Styles.VLine />
+          <Styles.RightSide>
+            {trash && (
+              <TrashButton
+                onPress={() => {
+                  trash.action
+                }}
+              />
+            )}
+            {add && <AddStudentButton onPress={add.action} />}
+            {edit && <EditButton onPress={() => {}} />}
+            {cancel && (
+              <CancelButton
+                onPress={() => {
+                  cancel.action
+                }}
+              />
+            )}
+            {confirm && (
+              <ConfirmButton
+                onPress={() => {
+                  confirm.action
+                }}
+              />
+            )}
+          </Styles.RightSide>
+        </Styles.Wrapper>
+      </Styles.BigWrapper>
   )
 }
 
-const HomeButton = (props: { color: string; onPress: () => void }) => {
+const HomeButton = (props: { fade: boolean; onPress: () => void }) => {
   return (
     <TouchableWithoutFeedback onPress={props.onPress}>
       <Styles.Box>
         <MaterialCommunityIcons
           name="home-outline"
           size={24}
-          color={props.color}
+          color={props.fade ? THEME.colors.icon : THEME.colors.fade}
         />
-        <THEME.text.CAPTION>HOME</THEME.text.CAPTION>
+        <THEME.text.CAPTION
+          style={{ color: props.fade ? THEME.colors.icon : THEME.colors.fade }}
+        >
+          HOME
+        </THEME.text.CAPTION>
       </Styles.Box>
     </TouchableWithoutFeedback>
   )
 }
 
-const BackButton = (props: { color: string; onPress: () => void }) => {
+const BackButton = (props: { fade: boolean; onPress: () => void }) => {
   return (
     <TouchableWithoutFeedback onPress={props.onPress}>
       <Styles.Box>
-        <MaterialIcons name="arrow-back" size={24} color={props.color} />
-        <THEME.text.CAPTION>BACK</THEME.text.CAPTION>
+        <Ionicons
+          name="md-arrow-round-back"
+          size={24}
+          color={props.fade ? THEME.colors.icon : THEME.colors.fade}
+        />
+        <THEME.text.CAPTION
+          style={{ color: props.fade ? THEME.colors.icon : THEME.colors.fade }}
+        >
+          BACK
+        </THEME.text.CAPTION>
+      </Styles.Box>
+    </TouchableWithoutFeedback>
+  )
+}
+
+const AddStudentButton = (props: { onPress: () => void }) => {
+  return (
+    <TouchableWithoutFeedback onPress={props.onPress}>
+      <Styles.Box>
+        <MaterialIcons name="person-add" size={24} color={THEME.colors.icon} />
+        <THEME.text.CAPTION style={{ color: THEME.colors.icon }}>
+          ADD
+        </THEME.text.CAPTION>
+      </Styles.Box>
+    </TouchableWithoutFeedback>
+  )
+}
+
+const EditButton = (props: { onPress: () => void }) => {
+  return (
+    <TouchableWithoutFeedback onPress={props.onPress}>
+      <Styles.Box>
+        <Feather name="edit" size={24} color={THEME.colors.icon} />
+        <THEME.text.CAPTION style={{ color: THEME.colors.icon }}>
+          EDIT
+        </THEME.text.CAPTION>
+      </Styles.Box>
+    </TouchableWithoutFeedback>
+  )
+}
+
+const CancelButton = (props: { onPress: () => void }) => {
+  return (
+    <TouchableWithoutFeedback onPress={props.onPress}>
+      <Styles.Box>
+        <MaterialIcons name="cancel" size={24} color={THEME.colors.icon} />
+        <THEME.text.CAPTION style={{ color: THEME.colors.icon }}>
+          CANCEL
+        </THEME.text.CAPTION>
+      </Styles.Box>
+    </TouchableWithoutFeedback>
+  )
+}
+
+const ConfirmButton = (props: { onPress: () => void }) => {
+  return (
+    <TouchableWithoutFeedback onPress={props.onPress}>
+      <Styles.Box>
+        <FontAwesome name="check" size={24} color={THEME.colors.icon} />
+        <THEME.text.CAPTION style={{ color: THEME.colors.icon }}>
+          OK
+        </THEME.text.CAPTION>
+      </Styles.Box>
+    </TouchableWithoutFeedback>
+  )
+}
+
+const TrashButton = (props: { onPress: () => void }) => {
+  const [confirm, setConfirm] = useState(false)
+
+  return (
+    <TouchableWithoutFeedback
+      onPress={() => {
+        if (!confirm) {
+          setConfirm(true)
+          setTimeout(() => {
+            setConfirm(false)
+          }, 1000)
+        } else {
+          setConfirm(false)
+          props.onPress()
+        }
+      }}
+    >
+      <Styles.Box>
+        <FontAwesome5
+          name="trash-alt"
+          size={24}
+          color={confirm ? THEME.colors.red : THEME.colors.icon}
+        />
+        <THEME.text.CAPTION
+          style={{ color: confirm ? THEME.colors.red : THEME.colors.text }}
+        >
+          REMOVE
+        </THEME.text.CAPTION>
       </Styles.Box>
     </TouchableWithoutFeedback>
   )
 }
 
 const Styles = {
+  BigWrapper: styled.SafeAreaView`
+    height: 100%;
+    justify-content: flex-end;
+  `,
   Wrapper: styled.View`
     width: 100%;
     height: 50px;
     border-top-color: ${THEME.colors.line};
     border-top-width: 2px;
+    border-bottom-color: ${THEME.colors.line};
+    border-bottom-width: 2px;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
+    background-color: ${THEME.colors.background};
+    /* opacity: 0.5; */
   `,
   LeftSide: styled.View`
     flex: 1;
     flex-direction: row;
+    justify-content: space-evenly;
+  `,
+  VLine: styled.View`
+    width: 2px;
+    height: 50%;
+    background-color: ${THEME.colors.line};
   `,
   RightSide: styled.View`
-    flex: 1;
+    flex: 2;
     flex-direction: row;
+    justify-content: space-evenly;
   `,
   Box: styled.View`
-    width: 50px;
-    height: 100%;
+    min-width: 50px;
+    height: 50px;
     justify-content: center;
     align-items: center;
+    /* border-bottom-color: ${THEME.colors.icon};
+    border-bottom-width: 2px; */
     /* background-color: white; */
   `,
 }

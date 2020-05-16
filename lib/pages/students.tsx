@@ -39,32 +39,9 @@ export function Students() {
     a.push({ text: `${rank} ${lastName}`, page: 'Home' })
   }
 
-  FooterEmitter.home()
-  FooterEmitter.back()
-  FooterEmitter.button1({
-    text: 'CANCEL',
-    style: {
-      color: THEME.colors.red,
-      borderColor: THEME.colors.red,
-      borderWidth: 2,
-      paddingVertical: 5,
-      paddingHorizontal: 20,
-      borderRadius: 8,
-    },
-    action: () => {},
-  })
-  FooterEmitter.button2({
-    text: 'OK',
-    style: {
-      color: THEME.colors.text,
-      borderColor: THEME.colors.text,
-      borderWidth: 2,
-      paddingVertical: 5,
-      paddingHorizontal: 20,
-      borderRadius: 8,
-    },
-    action: () => {},
-  })
+  FooterEmitter.home(true)
+  FooterEmitter.back('Home')
+  FooterEmitter.add(() => {})
 
-  return <ScrollData title="Students" content={a} />
+  return <ScrollData content={a} />
 }
