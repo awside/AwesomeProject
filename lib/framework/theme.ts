@@ -4,14 +4,13 @@ class _THEME {
   #textSize = 30
 
   colors: { [key: string]: string } = {
-    background: '#e3e0d7',
-    component: '#6E7E7C',
-    text: '#575652',
-    textLight: '#F3F8F2',
+    background: '#33372F',
+    component: '#4F554E',
+    text: '#E6E4E6',
     green: '#20BF55',
     red: '#ED6A5A',
-    line: '#a9a8a1',
-    button: '#3581B8 ',
+    line: '#474448',
+    blue: '#227C9D',
   }
 
   text = {

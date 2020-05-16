@@ -1,6 +1,6 @@
 import React from 'react'
-import {Navigator} from './lib/framework/navigator/navigator'
+import { Navigator } from './lib/framework/navigator/navigator'
 
-export default function App() {
+export default () => {
   return <Navigator />
 }

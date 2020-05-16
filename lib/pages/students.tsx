@@ -4,6 +4,7 @@ import ScrollData from '../components/unique/scrolldata'
 import { pages } from '../framework/navigator/nav_emitter'
 import { StudentData } from '../data/student_data'
 import { FooterEmitter } from '../framework/footer/footer_emitter'
+import { THEME } from '../framework/theme'
 
 let studentData = [
   {
@@ -38,14 +39,32 @@ export function Students() {
     a.push({ text: `${rank} ${lastName}`, page: 'Home' })
   }
 
-  FooterEmitter.home('Home')
-  FooterEmitter.back('Home')
-  FooterEmitter.button('ADD', () => {})
+  FooterEmitter.home()
+  FooterEmitter.back()
+  FooterEmitter.button1({
+    text: 'CANCEL',
+    style: {
+      color: THEME.colors.red,
+      borderColor: THEME.colors.red,
+      borderWidth: 2,
+      paddingVertical: 5,
+      paddingHorizontal: 20,
+      borderRadius: 8,
+    },
+    action: () => {},
+  })
+  FooterEmitter.button2({
+    text: 'OK',
+    style: {
+      color: THEME.colors.text,
+      borderColor: THEME.colors.text,
+      borderWidth: 2,
+      paddingVertical: 5,
+      paddingHorizontal: 20,
+      borderRadius: 8,
+    },
+    action: () => {},
+  })
 
-  return (
-    <ScrollData
-      title="Students"
-      content={a}
-    />
-  )
+  return <ScrollData title="Students" content={a} />
 }

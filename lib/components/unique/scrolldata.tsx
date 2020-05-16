@@ -24,9 +24,9 @@ export default function ScrollData(props: {
         }}
       >
         <Item>
-          <THEME.text.heading style={{ color: THEME.colors.textLight }}>
+          <THEME.text.body style={{ color: THEME.colors.text }}>
             {e.text}
-          </THEME.text.heading>
+          </THEME.text.body>
         </Item>
       </TouchableWithoutFeedback>
     )
@@ -62,7 +62,7 @@ const Item = styled.View`
   flex-direction: row;
   align-items: center;
   padding-left: 20px;
-  /* border: .5px solid ${THEME.colors.line};  */
+  border: 1px solid ${THEME.colors.text}; 
   background-color: ${THEME.colors.component};
-  border-radius: 4px;
+  border-radius: 3px;
 `

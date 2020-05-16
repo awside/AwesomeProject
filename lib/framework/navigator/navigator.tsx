@@ -24,7 +24,7 @@ const pageList: Array<{
   },
 ]
 
-export function Navigator() {
+export const Navigator = () => {
   const [page, setPage] = useState<JSX.Element>()
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export function Navigator() {
 
   return (
     <SafeArea>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <Content>{page}</Content>
       <Footer />
     </SafeArea>
