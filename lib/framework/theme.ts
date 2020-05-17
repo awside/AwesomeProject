@@ -9,6 +9,7 @@ class _THEME {
     component: '#4F554E',
     line: '#4F554E',
     fade: '#4F554E',
+    dark: '#2e2d2c',
     text: '#E6E4E6',
     icon: '#E6E4E6',
     red: '#ED6A5A',
@@ -27,11 +28,16 @@ class _THEME {
       color: ${this.colors.text};
       font-weight: bold;
     `,
-    heading: styled.Text`
+    h1: styled.Text`
       font-size: ${this.#textSize * 0.7}px;
       color: ${this.colors.text};
       font-weight: bold;
     `,
+    h2: styled.Text`
+    font-size: ${this.#textSize * 0.6}px;
+    color: ${this.colors.text};
+    font-weight: bold;
+  `,
     body: styled.Text`
       font-size: ${this.#textSize * 0.5}px;
       color: ${this.colors.text};

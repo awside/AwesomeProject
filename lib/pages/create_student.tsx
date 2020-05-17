@@ -25,40 +25,40 @@ export function CreateStudent() {
         <TextInput
           placeholder="Rank"
           onChange={(value) => {
-            rank = value
+            // rank = value
           }}
         />
         <Spacer vertical={20} />
         <TextInput
           placeholder="Last Name"
           onChange={(value) => {
-            lastName = value
+            // lastName = value
           }}
         />
         <Spacer vertical={20} />
         <TextInput
           placeholder="First Name"
           onChange={(value) => {
-            firstName = value
+            // firstName = value
           }}
         />
         <Spacer vertical={20} />
         <TextInput
           placeholder="MOS"
           onChange={(value) => {
-            mos = value
+            // mos = value
           }}
         />
         <Spacer vertical={20} />
         <Row>
           <CheckBox
-            text="RANGER"
+            // text="RANGER"
             onChange={(value) => {
               ranger = value
             }}
           />
           <CheckBox
-            text="RECYCLE"
+            // text="RECYCLE"
             onChange={(value) => {
               recycle = value
             }}

@@ -12,15 +12,19 @@ export function Header() {
     })
   }, [])
 
-  return <Styles.Wrapper>{text}</Styles.Wrapper>
+  return (
+    <Styles.Wrapper>
+      <THEME.text.h1>{text}</THEME.text.h1>
+    </Styles.Wrapper>
+  )
 }
 
 const Styles = {
   Wrapper: styled.View`
     width: 100%;
-    height: 50px;
-    border-top-color: ${THEME.colors.line};
-    border-top-width: 2px;
+    height: 30px;
+    /* border-top-color: ${THEME.colors.line};
+    border-top-width: 2px; */
     border-bottom-color: ${THEME.colors.line};
     border-bottom-width: 2px;
     flex-direction: row;

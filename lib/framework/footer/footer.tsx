@@ -228,13 +228,12 @@ const Styles = {
     height: 50px;
     border-top-color: ${THEME.colors.line};
     border-top-width: 2px;
-    border-bottom-color: ${THEME.colors.line};
-    border-bottom-width: 2px;
+    /* border-bottom-color: ${THEME.colors.line};
+    border-bottom-width: 2px; */
     flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: ${THEME.colors.background};
-    /* opacity: 0.5; */
   `,
   LeftSide: styled.View`
     flex: 1;

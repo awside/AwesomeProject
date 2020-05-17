@@ -52,19 +52,20 @@ export const Navigator = () => {
         <StatusBar barStyle="light-content" />
 
         <SafeAreaView
-          forceInset={{ bottom: 'never', top: 'always' }}
-          style={{ position: 'absolute', flex: 1, width: '100%' }}
+          forceInset={{ bottom: 'always', top: 'always' }}
+          style={{ position: 'absolute', top: 30, bottom: 0, width: '100%' }}
         >
           {page}
         </SafeAreaView>
 
-        <SafeAreaView 
-          style={{ position: 'absolute', flex: 1, width: '100%' }}>
+        <SafeAreaView
+          style={{ position: 'absolute', height: '100%', width: '100%' }}
+        >
           <Footer />
         </SafeAreaView>
 
         <SafeAreaView 
-          style={{ position: 'absolute', flex: 1, width: '100%' }}>
+          style={{ position: 'absolute', width: '100%' }}>
           <Header />
         </SafeAreaView>
       </BackGround>
@@ -74,4 +75,5 @@ export const Navigator = () => {
 
 const BackGround = styled.View`
   background-color: ${THEME.colors.background};
+  flex: 1;
 `

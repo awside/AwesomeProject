@@ -43,3 +43,25 @@ interface IStudent {
 }
 
 interface IEval {}
+
+
+// let studentData = [
+//   {
+//     id: '234jsdlfg;',
+//     rank: 'SGT',
+//     lastName: 'Grimmard',
+//     firstName: 'Jake',
+//     mos: '18B',
+//     ranger: true,
+//     recycle: false,
+//   },
+//   {
+//     id: '234jsdsdlfg;',
+//     rank: 'CPT',
+//     lastName: 'Connor',
+//     firstName: 'Joe',
+//     mos: '18A',
+//     ranger: false,
+//     recycle: true,
+//   },
+// ]

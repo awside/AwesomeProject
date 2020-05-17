@@ -1,41 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import { Spacer } from '../base/spacer'
-import { TouchableWithoutFeedback } from 'react-native'
-import { Button } from '../base/button'
-import { nanoid } from 'nanoid/non-secure'
-import { pages, NavEmitter } from '../../framework/navigator/nav_emitter'
 import { THEME } from '../../framework/theme'
 
-export default function ScrollData(props: {
-  content: Array<{
-    text: string
-    page: pages
-  }>
-}) {
-  let a: Array<JSX.Element> = []
-  props.content.forEach((e) => {
-    a.push(
-      <TouchableWithoutFeedback
-        key={nanoid()}
-        onPress={() => {
-          NavEmitter.goto(e.page)
-        }}
-      >
-        <Item>
-          <THEME.text.body style={{ color: THEME.colors.text }}>
-            {e.text}
-          </THEME.text.body>
-        </Item>
-      </TouchableWithoutFeedback>
-    )
-    a.push(<Spacer vertical={5} key={nanoid()} />)
-  })
-  a.pop()
-
+export default function ScrollData(props: { content: Array<JSX.Element> }) {
   return (
     <ScrollView showsVerticalScrollIndicator={true}>
-      {a}
+      <Spacer vertical={20} />
+      {props.content}
       <Spacer vertical={20} />
       <Spacer vertical={500} />
     </ScrollView>
@@ -44,14 +16,4 @@ export default function ScrollData(props: {
 
 const ScrollView = styled.ScrollView`
   padding: 0px 10px;
-`
-
-const Item = styled.View`
-  height: 50px;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 20px;
-  border: 1px solid ${THEME.colors.text};
-  background-color: ${THEME.colors.component};
-  border-radius: 3px;
 `
