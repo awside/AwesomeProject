@@ -5,20 +5,7 @@ import {
   TextInput as TextInputRN,
   TouchableWithoutFeedback,
 } from 'react-native'
-
-const Wrapper = styled.View`
-  width: 100%;
-  padding: 0px 16px;
-  height: 44px;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  border-radius: 6px;
-`
-const TextInput_ = styled.TextInput`
-  width: 100%;
-  font-size: 18px;
-`
+import { THEME } from '../../framework/theme'
 
 export function TextInput(props: {
   placeholder?: string
@@ -29,6 +16,7 @@ export function TextInput(props: {
   onChange?: (value: string) => void
 }) {
   const [text, setText] = useState('')
+  const [focus, setFocus] = useState(false)
   let refTextInput: TextInputRN
 
   return (
@@ -40,11 +28,11 @@ export function TextInput(props: {
       <Wrapper>
         <TextInput_
           //@ts-ignore
-          style={Platform.select({
-            web: {
-              outline: 'none',
-            },
-          })}
+          style={{
+            borderBottomColor: focus
+              ? THEME.colors.blue
+              : THEME.colors.component,
+          }}
           ref={(ref: TextInputRN) => {
             refTextInput = ref
           }}
@@ -57,8 +45,36 @@ export function TextInput(props: {
             if (props.onChange) props.onChange(text)
           }}
           value={text}
+          placeholderTextColor={THEME.colors.background}
+          onFocus={() => {
+            setFocus(true)
+          }}
+          onBlur={() => {
+            setFocus(false)
+          }}
         />
+        <THEME.text.h2
+          style={{ color: focus ? THEME.colors.blue : THEME.colors.component }}
+        >
+          {props.placeholder}
+        </THEME.text.h2>
       </Wrapper>
     </TouchableWithoutFeedback>
   )
 }
+
+const Wrapper = styled.View`
+  width: 100%;
+  padding: 0px 16px;
+  height: 44px;
+  justify-content: center;
+  /* align-items: center; */
+  /* background-color: ${THEME.colors.text}; */
+  border-radius: 6px;
+`
+const TextInput_ = styled.TextInput`
+  width: 100%;
+  font-size: 18px;
+  border-bottom-width: 2px;
+  color: white;
+`

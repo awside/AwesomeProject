@@ -4,7 +4,7 @@ import { emitter } from '../../my_modules/emitter'
 import { THEME } from '../theme'
 
 export function Header() {
-  const [text, setText] = useState<string>('')
+  const [text, setText] = useState<string>('SWAMP FOX')
 
   useEffect(() => {
     emitter.on('@Header-set', (text: string) => {

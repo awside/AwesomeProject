@@ -12,6 +12,7 @@ import { pages, NavEmitter } from './nav_emitter'
 import { FooterEmitter } from '../footer/footer_emitter'
 import { THEME } from '../theme'
 import { Header } from '../header/header'
+import { AddStudent } from '../../pages/add_student'
 
 const pageList: Array<{
   name: pages
@@ -25,6 +26,10 @@ const pageList: Array<{
     name: 'Students',
     page: <Students />,
   },
+  {
+    name: 'Add Student',
+    page: <AddStudent />,
+  },
 ]
 
 export const Navigator = () => {
@@ -32,7 +37,7 @@ export const Navigator = () => {
 
   useEffect(() => {
     StudentData.retrieve(() => {
-      NavEmitter.goto('Home')
+      NavEmitter.goto('Add Student')
     })
 
     emitter.on('@Nav_goto', (page: pages) => {

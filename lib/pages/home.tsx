@@ -10,38 +10,68 @@ import { Spacer } from '../components/base/spacer'
 import { MaterialIcons } from '@expo/vector-icons'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Entypo } from '@expo/vector-icons'
+import { FooterEmitter } from '../framework/footer/footer_emitter'
 
 const data: Array<{
   text: string
   page: pages
   icon: JSX.Element
+  status: boolean
 }> = [
   {
-    text: 'Students',
+    text: 'Student Roster',
     page: 'Students',
-    icon: <MaterialIcons name="people-outline" size={64} color={THEME.colors.icon} />,
+    icon: (
+      <MaterialIcons
+        name="people-outline"
+        size={64}
+        color={THEME.colors.icon}
+      />
+    ),
+    status: true,
   },
   {
     text: 'TS Gradebooks',
     page: 'Home',
     icon: <FontAwesome5 name="book-dead" size={64} color={THEME.colors.icon} />,
+    status: true,
   },
   {
     text: 'Classes',
     page: 'Home',
-    icon: <MaterialCommunityIcons name="teach" size={64} color={THEME.colors.icon} />,
+    icon: (
+      <MaterialCommunityIcons
+        name="teach"
+        size={64}
+        color={THEME.colors.icon}
+      />
+    ),
+    status: false,
+  },
+  {
+    text: 'Calendar',
+    page: 'Home',
+    icon: <Entypo name="calendar" size={64} color={THEME.colors.icon} />,
+    status: false,
   },
 ]
 
 export const Home = () => {
-  HeaderEmitter.set('HOME')
+  HeaderEmitter.set('SWAMP FOX')
 
   useEffect(() => {}, [])
 
   let content: Array<JSX.Element> = []
   data.forEach((e) => {
     content.push(
-      <Item text={e.text} page={e.page} icon={e.icon} key={nanoid()} />
+      <Item
+        text={e.text}
+        page={e.page}
+        icon={e.icon}
+        status={e.status}
+        key={nanoid()}
+      />
     )
     content.push(<Spacer vertical={10} key={nanoid()} />)
   })
@@ -50,14 +80,20 @@ export const Home = () => {
   return <ScrollData content={content} />
 }
 
-const Item = (props: { text: string; page: pages; icon: JSX.Element }) => {
+const Item = (props: {
+  text: string
+  page: pages
+  icon: JSX.Element
+  status: boolean
+}) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
+        if (!props.status) return
         NavEmitter.goto(props.page)
       }}
     >
-      <Styles.Item>
+      <Styles.Item style={{ opacity: props.status ? 1.0 : 0.2 }}>
         {props.icon}
         <THEME.text.h2 style={{ color: THEME.colors.text }}>
           {props.text}

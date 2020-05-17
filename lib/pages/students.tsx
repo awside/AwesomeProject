@@ -9,9 +9,10 @@ import { nanoid } from 'nanoid/non-secure'
 import { Spacer } from '../components/base/spacer'
 import { FooterEmitter } from '../framework/footer/footer_emitter'
 import { StudentData } from '../data/student_data'
+import { Entypo } from '@expo/vector-icons'
 
 export const Students = () => {
-  HeaderEmitter.set('STUDENTS')
+  HeaderEmitter.set('STUDENT ROSTER')
   FooterEmitter.home(true)
   FooterEmitter.back('Home')
   FooterEmitter.add(() => {})
@@ -55,8 +56,19 @@ const Styles = {
     flex-direction: row;
     align-items: center;
     padding-left: 20px;
-    border: 5px solid ${THEME.colors.text};
+    border: 2px solid ${THEME.colors.dark};
     background-color: ${THEME.colors.component};
-    border-radius: 3px;
+    border-radius: 8px;
+  `,
+  SeperatorWrapper: styled.View`
+    width: 100%;
+    height: 10px;
+    justify-content: center;
+    align-items: center;
+  `,
+  SeperatorLine: styled.View`
+    width: 80%;
+    height: 0.5px;
+    background-color: ${THEME.colors.icon};
   `,
 }
