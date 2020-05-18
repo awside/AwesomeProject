@@ -12,7 +12,6 @@ import { TouchableWithoutFeedback } from 'react-native'
 import { emitter } from '../../my_modules/emitter'
 import { pages, NavEmitter } from '../navigator/nav_emitter'
 import { THEME } from '../theme'
-import SafeAreaView from 'react-native-safe-area-view'
 
 export function Footer() {
   const [home, setHome] = useState<pages>()
@@ -48,50 +47,32 @@ export function Footer() {
   }, [])
 
   return (
-      <Styles.BigWrapper pointerEvents="box-none">
-        <Styles.Wrapper>
-          <Styles.LeftSide>
-            <HomeButton
-              fade={!!home}
-              onPress={() => {
-                if (home) NavEmitter.goto('Home')
-              }}
-            />
-            <BackButton
-              fade={!!home}
-              onPress={() => {
-                if (back) NavEmitter.goto(back)
-              }}
-            />
-          </Styles.LeftSide>
-          <Styles.VLine />
-          <Styles.RightSide>
-            {trash && (
-              <TrashButton
-                onPress={() => {
-                  trash.action
-                }}
-              />
-            )}
-            {add && <AddStudentButton onPress={add.action} />}
-            {edit && <EditButton onPress={() => {}} />}
-            {cancel && (
-              <CancelButton
-                onPress={() => {
-                  cancel.action
-                }}
-              />
-            )}
-            {confirm && (
-              <ConfirmButton
-                onPress={() => {
-                  confirm.action
-                }}
-              />
-            )}
-          </Styles.RightSide>
-        </Styles.Wrapper>
-      </Styles.BigWrapper>
+    <Styles.BigWrapper pointerEvents="box-none">
+      <Styles.Wrapper>
+        <Styles.LeftSide>
+          <HomeButton
+            fade={!!home}
+            onPress={() => {
+              if (home) NavEmitter.goto('Home')
+            }}
+          />
+          <BackButton
+            fade={!!home}
+            onPress={() => {
+              if (back) NavEmitter.goto(back)
+            }}
+          />
+        </Styles.LeftSide>
+        <Styles.VLine />
+        <Styles.RightSide>
+          {trash && <TrashButton onPress={trash.action} />}
+          {add && <AddStudentButton onPress={add.action} />}
+          {edit && <EditButton onPress={edit.action} />}
+          {cancel && <CancelButton onPress={cancel.action} />}
+          {confirm && <ConfirmButton onPress={confirm.action} />}
+        </Styles.RightSide>
+      </Styles.Wrapper>
+    </Styles.BigWrapper>
   )
 }
 
@@ -194,6 +175,7 @@ const TrashButton = (props: { onPress: () => void }) => {
         if (!confirm) {
           setConfirm(true)
           setTimeout(() => {
+            if (confirm == false) return
             setConfirm(false)
           }, 1000)
         } else {

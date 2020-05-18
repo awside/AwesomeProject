@@ -4,15 +4,16 @@ import SafeAreaView from 'react-native-safe-area-view'
 import styled from 'styled-components/native'
 import { StatusBar } from 'react-native'
 import { Footer } from '../footer/footer'
-import { StudentData } from '../../data/student_data'
 import { emitter } from '../../my_modules/emitter'
 import { Home } from '../../pages/home'
-import { Students } from '../../pages/students'
+import { Students } from '../../pages/student/students'
 import { pages, NavEmitter } from './nav_emitter'
 import { FooterEmitter } from '../footer/footer_emitter'
 import { THEME } from '../theme'
 import { Header } from '../header/header'
-import { AddStudent } from '../../pages/add_student'
+import { AddStudent } from '../../pages/student/add_student'
+import { studentData } from '../../data/student_data'
+import { Student } from '../../pages/student/student'
 
 const pageList: Array<{
   name: pages
@@ -27,6 +28,10 @@ const pageList: Array<{
     page: <Students />,
   },
   {
+    name: 'Student',
+    page: <Student />,
+  },
+  {
     name: 'Add Student',
     page: <AddStudent />,
   },
@@ -36,10 +41,6 @@ export const Navigator = () => {
   const [page, setPage] = useState<JSX.Element>()
 
   useEffect(() => {
-    StudentData.retrieve(() => {
-      NavEmitter.goto('Add Student')
-    })
-
     emitter.on('@Nav_goto', (page: pages) => {
       for (let i = 0; i < pageList.length; i++) {
         if (pageList[i].name == page) {
@@ -49,6 +50,8 @@ export const Navigator = () => {
         }
       }
     })
+
+    NavEmitter.goto('Home')
   }, [])
 
   return (
@@ -69,8 +72,7 @@ export const Navigator = () => {
           <Footer />
         </SafeAreaView>
 
-        <SafeAreaView 
-          style={{ position: 'absolute', width: '100%' }}>
+        <SafeAreaView style={{ position: 'absolute', width: '100%' }}>
           <Header />
         </SafeAreaView>
       </BackGround>

@@ -11,7 +11,7 @@ const StudentContainer = styled.View`
   border: 1px solid ${THEME.colors.line};
 `
 
-export function Student(props: { rank: string; name: string }) {
+export function Student__(props: { rank: string; name: string }) {
   return (
     <StudentContainer>
       <THEME.text.body>{props.rank + ' '}</THEME.text.body>

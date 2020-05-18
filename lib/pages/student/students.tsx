@@ -1,31 +1,36 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components/native'
-import ScrollData from '../components/unique/scrolldata'
-import { HeaderEmitter } from '../framework/header/header_emitter'
-import { THEME } from '../framework/theme'
-import { pages, NavEmitter } from '../framework/navigator/nav_emitter'
+import ScrollData from '../../components/unique/scrolldata'
+import { HeaderEmitter } from '../../framework/header/header_emitter'
+import { THEME } from '../../framework/theme'
+import { pages, NavEmitter } from '../../framework/navigator/nav_emitter'
 import { TouchableWithoutFeedback } from 'react-native'
 import { nanoid } from 'nanoid/non-secure'
-import { Spacer } from '../components/base/spacer'
-import { FooterEmitter } from '../framework/footer/footer_emitter'
-import { StudentData } from '../data/student_data'
+import { Spacer } from '../../components/base/spacer'
+import { FooterEmitter } from '../../framework/footer/footer_emitter'
 import { Entypo } from '@expo/vector-icons'
+import { studentData } from '../../data/student_data'
 
 export const Students = () => {
   HeaderEmitter.set('STUDENT ROSTER')
   FooterEmitter.home(true)
   FooterEmitter.back('Home')
-  FooterEmitter.add(() => {})
+  FooterEmitter.add(() => {
+    NavEmitter.goto('Add Student')
+  })
 
   useEffect(() => {}, [])
 
   let content: Array<JSX.Element> = []
   content.push()
-  for (let i = 0; i < StudentData.data.students.length; i++) {
-    let rank = StudentData.data.students[i].rank
-    let lastName = StudentData.data.students[i].lastName
+  for (let i = 0; i < studentData.numOfStudents; i++) {
+    let s = studentData.getStudentByOrder(i)
     content.push(
-      <Item text={`${rank} ${lastName}`} page={'Home'} key={nanoid()} />
+      <Item
+        id={s.id}
+        text={`${s.rank} ${s.lastName}, ${s.firstName}`}
+        key={nanoid()}
+      />
     )
     content.push(<Spacer vertical={5} key={nanoid()} />)
   }
@@ -34,11 +39,12 @@ export const Students = () => {
   return <ScrollData content={content} />
 }
 
-const Item = (props: { text: string; page: pages }) => {
+const Item = (props: { id: string; text: string }) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        NavEmitter.goto(props.page)
+        studentData.setCurrentStudent(props.id)
+        NavEmitter.goto('Student')
       }}
     >
       <Styles.Item>

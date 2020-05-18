@@ -35,7 +35,7 @@ const data: Array<{
     text: 'TS Gradebooks',
     page: 'Home',
     icon: <FontAwesome5 name="book-dead" size={64} color={THEME.colors.icon} />,
-    status: true,
+    status: false,
   },
   {
     text: 'Classes',

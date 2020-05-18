@@ -52,7 +52,7 @@ class Footer_Emitter {
 
   clear = () => {
     FooterEmitter.home(false)
-    FooterEmitter.back(undefined)
+    FooterEmitter.back()
     FooterEmitter.trash()
     FooterEmitter.add()
     FooterEmitter.edit()
