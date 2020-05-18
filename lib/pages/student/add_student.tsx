@@ -19,7 +19,7 @@ export const AddStudent = () => {
     mos: '',
   }
 
-  HeaderEmitter.set('ADD STUDENT')
+  HeaderEmitter.set('New Student')
   FooterEmitter.cancel(() => {
     NavEmitter.goto('Students')
   })

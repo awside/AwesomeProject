@@ -15,6 +15,7 @@ class _THEME {
     red: '#ED6A5A',
     green: '#20BF55',
     blue: '#227C9D',
+    highlight: '#F2D9A4',
   }
 
   text = {

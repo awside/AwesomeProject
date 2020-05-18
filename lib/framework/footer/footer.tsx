@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components/native'
 import {
   MaterialIcons,
@@ -168,17 +168,21 @@ const ConfirmButton = (props: { onPress: () => void }) => {
 
 const TrashButton = (props: { onPress: () => void }) => {
   const [confirm, setConfirm] = useState(false)
+  const confirmRef = useRef(false)
 
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        if (!confirm) {
+        if (!confirmRef.current) {
+          confirmRef.current = true
           setConfirm(true)
           setTimeout(() => {
-            if (confirm == false) return
+            if (!confirmRef.current) return
+            confirmRef.current = false
             setConfirm(false)
           }, 1000)
         } else {
+          confirmRef.current = false
           setConfirm(false)
           props.onPress()
         }
@@ -191,7 +195,9 @@ const TrashButton = (props: { onPress: () => void }) => {
           color={confirm ? THEME.colors.red : THEME.colors.icon}
         />
         <THEME.text.CAPTION
-          style={{ color: confirm ? THEME.colors.red : THEME.colors.text }}
+          style={{
+            color: confirm ? THEME.colors.red : THEME.colors.text,
+          }}
         >
           REMOVE
         </THEME.text.CAPTION>

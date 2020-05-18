@@ -12,7 +12,7 @@ import { Entypo } from '@expo/vector-icons'
 import { studentData } from '../../data/student_data'
 
 export const Students = () => {
-  HeaderEmitter.set('STUDENT ROSTER')
+  HeaderEmitter.set('Student Roster')
   FooterEmitter.home(true)
   FooterEmitter.back('Home')
   FooterEmitter.add(() => {
