@@ -9,8 +9,6 @@ export interface IStudent {
   mos: string
 }
 
-interface IGradebook {}
-
 class StudentData {
   #currentStudentID?: string
   #studentData: Array<IStudent> = [

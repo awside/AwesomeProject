@@ -11,15 +11,13 @@ import { FooterEmitter } from '../../framework/footer/footer_emitter'
 import { Entypo } from '@expo/vector-icons'
 import { studentData } from '../../data/student_data'
 
-export const Students = () => {
-  HeaderEmitter.set('Student Roster')
+export const Gradebooks = () => {
+  HeaderEmitter.set('TS Gradebooks')
   FooterEmitter.home(true)
   FooterEmitter.back('Home')
-  FooterEmitter.add(() => {
-    NavEmitter.goto('AddStudent')
+  FooterEmitter.addEval(() => {
+    NavEmitter.goto('Home')
   })
-
-  useEffect(() => {}, [])
 
   let content: Array<JSX.Element> = []
   content.push()

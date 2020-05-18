@@ -26,6 +26,14 @@ class Footer_Emitter {
     }
   }
 
+  addEval = (action?: () => void) => {
+    if (action) {
+      emitter.emit('@Footer-setAddEval', action)
+    } else {
+      emitter.emit('@Footer-setAddEval')
+    }
+  }
+
   edit = (action?: () => void) => {
     if (action) {
       emitter.emit('@Footer-setEdit', action)
@@ -55,6 +63,7 @@ class Footer_Emitter {
     FooterEmitter.back()
     FooterEmitter.trash()
     FooterEmitter.add()
+    FooterEmitter.addEval()
     FooterEmitter.edit()
     FooterEmitter.cancel()
     FooterEmitter.confirm()

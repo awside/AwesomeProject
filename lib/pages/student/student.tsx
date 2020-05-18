@@ -18,7 +18,7 @@ export const Student = () => {
     NavEmitter.goto('Students')
   })
   FooterEmitter.edit(() => {
-    NavEmitter.goto('Edit Student')
+    NavEmitter.goto('EditStudent')
   })
   FooterEmitter.home(true)
   FooterEmitter.back('Students')

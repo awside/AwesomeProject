@@ -15,6 +15,7 @@ import { AddStudent } from '../../pages/student/add_student'
 import { studentData } from '../../data/student_data'
 import { Student } from '../../pages/student/student'
 import { EditStudent } from '../../pages/student/edit_student'
+import { Gradebooks } from '../../pages/gradebook/gradebooks'
 
 const pageList: Array<{
   name: pages
@@ -33,12 +34,16 @@ const pageList: Array<{
     page: <Student />,
   },
   {
-    name: 'Add Student',
+    name: 'AddStudent',
     page: <AddStudent />,
   },
   {
-    name: 'Edit Student',
+    name: 'EditStudent',
     page: <EditStudent />,
+  },
+  {
+    name: 'Gradebooks',
+    page: <Gradebooks />,
   },
 ]
 

@@ -18,6 +18,7 @@ export function Footer() {
   const [back, setBack] = useState<pages>()
   const [trash, setTrash] = useState<{ action: () => void }>()
   const [add, setAdd] = useState<{ action: () => void }>()
+  const [addEval, setAddEval] = useState<{ action: () => void }>()
   const [edit, setEdit] = useState<{ action: () => void }>()
   const [cancel, setCancel] = useState<{ action: () => void }>()
   const [confirm, setConfirm] = useState<{ action: () => void }>()
@@ -34,6 +35,9 @@ export function Footer() {
     })
     emitter.on('@Footer-setAdd', (action?: () => void) => {
       setAdd(action ? { action: action } : undefined)
+    })
+    emitter.on('@Footer-setAddEval', (action?: () => void) => {
+      setAddEval(action ? { action: action } : undefined)
     })
     emitter.on('@Footer-setEdit', (action?: () => void) => {
       setEdit(action ? { action: action } : undefined)
@@ -67,6 +71,7 @@ export function Footer() {
         <Styles.RightSide>
           {trash && <TrashButton onPress={trash.action} />}
           {add && <AddStudentButton onPress={add.action} />}
+          {addEval && <AddEvalButton onPress={addEval.action} />}
           {edit && <EditButton onPress={edit.action} />}
           {cancel && <CancelButton onPress={cancel.action} />}
           {confirm && <ConfirmButton onPress={confirm.action} />}
@@ -119,6 +124,23 @@ const AddStudentButton = (props: { onPress: () => void }) => {
     <TouchableWithoutFeedback onPress={props.onPress}>
       <Styles.Box>
         <MaterialIcons name="person-add" size={24} color={THEME.colors.icon} />
+        <THEME.text.CAPTION style={{ color: THEME.colors.icon }}>
+          ADD
+        </THEME.text.CAPTION>
+      </Styles.Box>
+    </TouchableWithoutFeedback>
+  )
+}
+
+const AddEvalButton = (props: { onPress: () => void }) => {
+  return (
+    <TouchableWithoutFeedback onPress={props.onPress}>
+      <Styles.Box>
+        <MaterialCommunityIcons
+          name="book-open-outline"
+          size={24}
+          color={THEME.colors.icon}
+        />
         <THEME.text.CAPTION style={{ color: THEME.colors.icon }}>
           ADD
         </THEME.text.CAPTION>
