@@ -8,6 +8,7 @@ import {
 import { THEME } from '../../framework/theme'
 
 export function TextInput(props: {
+  value?: string
   placeholder?: string
   autoCompleteType?: 'email' | 'password'
   keyboardType?: 'email-address'
@@ -15,7 +16,7 @@ export function TextInput(props: {
   textContentType?: 'emailAddress' | 'password' | 'newPassword'
   onChange?: (value: string) => void
 }) {
-  const [text, setText] = useState('')
+  const [text, setText] = useState(props.value ?? '')
   const [focus, setFocus] = useState(false)
   let refTextInput: TextInputRN
 
@@ -30,7 +31,7 @@ export function TextInput(props: {
           //@ts-ignore
           style={{
             borderBottomColor: focus
-              ? THEME.colors.blue
+              ? THEME.colors.highlight
               : THEME.colors.component,
           }}
           ref={(ref: TextInputRN) => {
@@ -54,7 +55,9 @@ export function TextInput(props: {
           }}
         />
         <THEME.text.h2
-          style={{ color: focus ? THEME.colors.blue : THEME.colors.component }}
+          style={{
+            color: focus ? THEME.colors.highlight : THEME.colors.component,
+          }}
         >
           {props.placeholder}
         </THEME.text.h2>

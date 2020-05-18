@@ -25,8 +25,8 @@ const Styles = {
     height: 30px;
     /* border-top-color: ${THEME.colors.line};
     border-top-width: 2px; */
-    border-bottom-color: ${THEME.colors.line};
-    border-bottom-width: 2px;
+    /* border-bottom-color: ${THEME.colors.line};
+    border-bottom-width: 2px; */
     flex-direction: row;
     justify-content: center;
     align-items: center;

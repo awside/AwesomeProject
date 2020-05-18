@@ -14,6 +14,7 @@ import { Header } from '../header/header'
 import { AddStudent } from '../../pages/student/add_student'
 import { studentData } from '../../data/student_data'
 import { Student } from '../../pages/student/student'
+import { EditStudent } from '../../pages/student/edit_student'
 
 const pageList: Array<{
   name: pages
@@ -34,6 +35,10 @@ const pageList: Array<{
   {
     name: 'Add Student',
     page: <AddStudent />,
+  },
+  {
+    name: 'Edit Student',
+    page: <EditStudent />,
   },
 ]
 

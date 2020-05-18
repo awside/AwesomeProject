@@ -1,6 +1,6 @@
 import { emitter } from '../../my_modules/emitter'
 
-export type pages = 'Home' | 'Students' | 'Student' | 'Add Student'
+export type pages = 'Home' | 'Students' | 'Student' | 'Add Student' | 'Edit Student'
 
 class Nav_Emitter {
   goto = (page: pages) => {
