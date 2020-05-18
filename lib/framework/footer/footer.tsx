@@ -33,7 +33,7 @@ export function Footer() {
     emitter.on('@Footer-setTrash', (action?: () => void) => {
       setTrash(action ? { action: action } : undefined)
     })
-    emitter.on('@Footer-setAdd', (action?: () => void) => {
+    emitter.on('@Footer-setAddStudent', (action?: () => void) => {
       setAdd(action ? { action: action } : undefined)
     })
     emitter.on('@Footer-setAddEval', (action?: () => void) => {

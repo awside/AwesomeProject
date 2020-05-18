@@ -15,7 +15,7 @@ export const Students = () => {
   HeaderEmitter.set('Student Roster')
   FooterEmitter.home(true)
   FooterEmitter.back('Home')
-  FooterEmitter.add(() => {
+  FooterEmitter.addStudent(() => {
     NavEmitter.goto('AddStudent')
   })
 

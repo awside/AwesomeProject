@@ -18,11 +18,11 @@ class Footer_Emitter {
     }
   }
 
-  add = (action?: () => void) => {
+  addStudent = (action?: () => void) => {
     if (action) {
-      emitter.emit('@Footer-setAdd', action)
+      emitter.emit('@Footer-setAddStudent', action)
     } else {
-      emitter.emit('@Footer-setAdd')
+      emitter.emit('@Footer-setAddStudent')
     }
   }
 
@@ -62,7 +62,7 @@ class Footer_Emitter {
     FooterEmitter.home(false)
     FooterEmitter.back()
     FooterEmitter.trash()
-    FooterEmitter.add()
+    FooterEmitter.addStudent()
     FooterEmitter.addEval()
     FooterEmitter.edit()
     FooterEmitter.cancel()
