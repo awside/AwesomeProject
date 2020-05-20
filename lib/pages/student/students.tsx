@@ -43,7 +43,7 @@ const Item = (props: { id: string; text: string }) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        studentData.setCurrentStudent(props.id)
+        studentData.currentStudentID = props.id
         NavEmitter.goto('Student')
       }}
     >

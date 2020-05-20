@@ -8,10 +8,12 @@ import { THEME } from '../../framework/theme'
 import { FooterEmitter } from '../../framework/footer/footer_emitter'
 import { NavEmitter } from '../../framework/navigator/nav_emitter'
 import { IEval, evalData } from '../../data/eval_data'
-import { ScrollView } from 'react-native'
+import { ScrollView, TouchableWithoutFeedback } from 'react-native'
+import { IStudent, studentData } from '../../data/student_data'
+import { PickerEmitter } from '../../framework/picker/picker_emitter'
 
 export const AddEval = () => {
-  const [chooseStudent, setChooseStudent] = useState('Choose Student')
+  const [chooseStudent, setChooseStudent] = useState('Student')
 
   const eval_: IEval = {
     id: nanoid(),
@@ -73,11 +75,52 @@ export const AddEval = () => {
         paddingHorizontal: 25,
       }}
     >
-      <ChooseStudent><THEME.text.body>{chooseStudent}</THEME.text.body></ChooseStudent>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          let a: Array<JSX.Element> = []
+          if (studentData.studentData.length > 0) {
+            studentData.studentData.forEach((s) => {
+              a.push(
+                <PickerItem
+                  key={nanoid()}
+                  student={s}
+                  onPress={(studentName: string) => {
+                    setChooseStudent(studentName)
+                  }}
+                />
+              )
+              a.push(<SeperatorLine />)
+            })
+            a.pop()
+          } else {
+            a.push(<PickerItemNone />)
+          }
+          PickerEmitter.on('Student', a)
+        }}
+      >
+        <ChooseStudent>
+          <THEME.text.body>{chooseStudent}</THEME.text.body>
+        </ChooseStudent>
+      </TouchableWithoutFeedback>
       {content}
     </ScrollView>
   )
 }
+
+const ChooseStudent = styled.View`
+  width: 100%;
+  height: 50px;
+  background-color: ${THEME.colors.component};
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+`
+
+const SeperatorLine = styled.View`
+  width: 50%;
+  height: 1px;
+  background-color: ${THEME.colors.component};
+`
 
 const Item = (props: {
   placeholder: string
@@ -92,11 +135,39 @@ const Item = (props: {
   )
 }
 
-const ChooseStudent = styled.View`
+const PickerItem = (props: {
+  student: IStudent
+  onPress: (studentName: string) => void
+}) => {
+  return (
+    <TouchableWithoutFeedback
+      onPress={() => {
+        PickerEmitter.off()
+        props.onPress(
+          `${props.student.rank} ${props.student.lastName}, ${props.student.firstName}`
+        )
+      }}
+    >
+      <PickerWrapper>
+        <THEME.text.body>
+          {`${props.student.rank} ${props.student.lastName}, ${props.student.firstName}`}
+        </THEME.text.body>
+      </PickerWrapper>
+    </TouchableWithoutFeedback>
+  )
+}
+
+const PickerItemNone = () => {
+  return (
+    <PickerWrapper>
+      <THEME.text.body>student roster is empty big sarge...</THEME.text.body>
+    </PickerWrapper>
+  )
+}
+
+const PickerWrapper = styled.View`
   width: 100%;
   height: 50px;
-  background-color: ${THEME.colors.component};
-  border-radius: 8px;
   justify-content: center;
   align-items: center;
 `

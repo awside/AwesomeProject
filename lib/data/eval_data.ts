@@ -10,7 +10,7 @@ export interface IEval {
 }
 
 class EvalData {
-  #currentEvalID?: string
+  currentEvalID?: string
   evalData: Array<IEval> = [
     {
       id: '2asdfagasdewq',
@@ -26,11 +26,7 @@ class EvalData {
   }
 
   getCurrentEval(): IEval {
-    return this.getEvalByID(this.#currentEvalID ?? '')
-  }
-
-  setCurrentEval(studID: string) {
-    this.#currentEvalID = studID
+    return this.getEvalByID(this.currentEvalID ?? '')
   }
 
   getEvalByOrder(studNum: number): IEval {

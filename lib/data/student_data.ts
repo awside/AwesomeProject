@@ -10,8 +10,8 @@ export interface IStudent {
 }
 
 class StudentData {
-  #currentStudentID?: string
-  #studentData: Array<IStudent> = [
+  currentStudentID?: string
+  studentData: Array<IStudent> = [
     {
       id: '234jsdlfgasc',
       rank: 'SGT',
@@ -29,19 +29,15 @@ class StudentData {
   ]
 
   get numOfStudents() {
-    return this.#studentData.length
+    return this.studentData.length
   }
 
   getCurrentStudent(): IStudent {
-    return this.getStudentByID(this.#currentStudentID ?? '')
-  }
-
-  setCurrentStudent(studID: string) {
-    this.#currentStudentID = studID
+    return this.getStudentByID(this.currentStudentID ?? '')
   }
 
   getStudentByOrder(studNum: number): IStudent {
-    return this.#studentData[studNum]
+    return this.studentData[studNum]
   }
 
   getStudentByID(studID: string): IStudent {
@@ -54,18 +50,18 @@ class StudentData {
   }
 
   addStudent(student: IStudent) {
-    this.#studentData.push(student)
+    this.studentData.push(student)
   }
 
   removeStudent(studID: string) {
     let studentToBeRemoved = this.getStudentByID(studID)
     let a: Array<IStudent> = []
-    this.#studentData.forEach((s) => {
+    this.studentData.forEach((s) => {
       if (s != studentToBeRemoved) {
         a.push(s)
       }
     })
-    this.#studentData = a
+    this.studentData = a
   }
 
   store = async () => {

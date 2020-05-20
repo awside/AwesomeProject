@@ -20,6 +20,10 @@ export function Picker() {
       setContent(content)
       setStatus(true)
     })
+
+    emitter.on('@Picker-off', () => {
+      setStatus(false)
+    })
   }, [])
 
   return status ? (
@@ -35,7 +39,9 @@ export function Picker() {
         <Header>
           <THEME.text.h1>{title}</THEME.text.h1>
         </Header>
-        <ScrollView>{content}</ScrollView>
+        <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
+          {content}
+        </ScrollView>
         <TouchableWithoutFeedback
           onPress={() => {
             setStatus(false)
