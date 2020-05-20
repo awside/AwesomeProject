@@ -7,6 +7,7 @@ export type pages =
   | 'AddStudent'
   | 'EditStudent'
   | 'Evals'
+  | 'Eval'
   | 'AddEval'
   | 'EditEval'
 

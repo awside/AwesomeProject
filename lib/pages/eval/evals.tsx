@@ -51,7 +51,7 @@ const Item = (props: {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        evalData.setCurrentEval(props.id)
+        evalData.currentEvalID = props.id
         NavEmitter.goto('Student')
       }}
     >

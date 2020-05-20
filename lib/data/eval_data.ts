@@ -81,3 +81,22 @@ class EvalData {
   }
 }
 export const evalData = new EvalData()
+
+export type grade = 'go' | 'nogo'
+
+export interface IGradebook {
+  title: string
+  sections: Array<ISection>
+}
+
+interface ISection {
+  title: string
+  grade?: grade
+  tasks: Array<ITask>
+}
+
+interface ITask {
+  title: string
+  grade?: grade
+  critical?: boolean
+}

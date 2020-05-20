@@ -12,12 +12,13 @@ import { FooterEmitter } from '../footer/footer_emitter'
 import { THEME } from '../theme'
 import { Header } from '../header/header'
 import { AddStudent } from '../../pages/student/add_student'
-import { studentData } from '../../data/student_data'
 import { Student } from '../../pages/student/student'
 import { EditStudent } from '../../pages/student/edit_student'
 import { Evals } from '../../pages/eval/evals'
 import { AddEval } from '../../pages/eval/add_eval'
 import { Picker } from '../picker/picker'
+import { Eval } from '../../pages/eval/eval'
+import { EditEval } from '../../pages/eval/edit_eval'
 
 const pageList: Array<{
   name: pages
@@ -48,8 +49,16 @@ const pageList: Array<{
     page: <Evals />,
   },
   {
+    name: 'Eval',
+    page: <Eval />,
+  },
+  {
     name: 'AddEval',
     page: <AddEval />,
+  },
+  {
+    name: 'EditEval',
+    page: <EditEval />,
   },
 ]
 
