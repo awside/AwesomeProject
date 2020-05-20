@@ -82,7 +82,7 @@ class EvalData {
 }
 export const evalData = new EvalData()
 
-export type grade = 'go' | 'nogo'
+export type grade = 'go' | 'nogo' | 'n/a'
 
 export interface IGradebook {
   title: string

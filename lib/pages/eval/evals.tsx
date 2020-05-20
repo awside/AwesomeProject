@@ -52,7 +52,7 @@ const Item = (props: {
     <TouchableWithoutFeedback
       onPress={() => {
         evalData.currentEvalID = props.id
-        NavEmitter.goto('Student')
+        NavEmitter.goto('Eval')
       }}
     >
       <Styles.Item>

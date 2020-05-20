@@ -9,8 +9,8 @@ const warno: IGradebook = {
     {
       title: 'Situation',
       tasks: [
-        { title: 'brief in 30 seconds' },
-        { title: 'brief in 30 seconds' },
+        { title: 'brief in 10 seconds' },
+        { title: 'brief in 20 seconds' },
         { title: 'brief in 30 seconds' },
         { title: 'brief in 30 seconds' },
         { title: 'brief in 30 seconds' },
