@@ -8,7 +8,6 @@ export default function ScrollData(props: { content: Array<JSX.Element> }) {
     <ScrollView showsVerticalScrollIndicator={true}>
       <Spacer vertical={20} />
       {props.content}
-      <Spacer vertical={20} />
       <Spacer vertical={500} />
     </ScrollView>
   )

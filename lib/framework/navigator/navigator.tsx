@@ -15,7 +15,9 @@ import { AddStudent } from '../../pages/student/add_student'
 import { studentData } from '../../data/student_data'
 import { Student } from '../../pages/student/student'
 import { EditStudent } from '../../pages/student/edit_student'
-import { Gradebooks } from '../../pages/gradebook/gradebooks'
+import { Evals } from '../../pages/eval/evals'
+import { AddEval } from '../../pages/eval/add_eval'
+import { Picker } from '../picker/picker'
 
 const pageList: Array<{
   name: pages
@@ -42,8 +44,12 @@ const pageList: Array<{
     page: <EditStudent />,
   },
   {
-    name: 'Gradebooks',
-    page: <Gradebooks />,
+    name: 'Evals',
+    page: <Evals />,
+  },
+  {
+    name: 'AddEval',
+    page: <AddEval />,
   },
 ]
 
@@ -85,6 +91,8 @@ export const Navigator = () => {
         <SafeAreaView style={{ position: 'absolute', width: '100%' }}>
           <Header />
         </SafeAreaView>
+
+        <Picker />
       </BackGround>
     </SafeAreaProvider>
   )

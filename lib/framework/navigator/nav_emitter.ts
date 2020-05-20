@@ -6,7 +6,9 @@ export type pages =
   | 'Student'
   | 'AddStudent'
   | 'EditStudent'
-  | 'Gradebooks'
+  | 'Evals'
+  | 'AddEval'
+  | 'EditEval'
 
 class Nav_Emitter {
   goto = (page: pages) => {

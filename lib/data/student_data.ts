@@ -13,14 +13,14 @@ class StudentData {
   #currentStudentID?: string
   #studentData: Array<IStudent> = [
     {
-      id: '234jsdlfg;',
+      id: '234jsdlfgasc',
       rank: 'SGT',
       lastName: 'Grimmard',
       firstName: 'Jake',
       mos: '18B',
     },
     {
-      id: '234jsdsdlfg;',
+      id: '234jsdsdlfgrtyu',
       rank: 'CPT',
       lastName: 'Connor',
       firstName: 'Joe',

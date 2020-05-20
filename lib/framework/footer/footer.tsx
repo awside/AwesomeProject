@@ -1,17 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components/native'
-import {
-  MaterialIcons,
-  MaterialCommunityIcons,
-  FontAwesome,
-  FontAwesome5,
-  Feather,
-  Ionicons,
-} from '@expo/vector-icons'
 import { TouchableWithoutFeedback } from 'react-native'
 import { emitter } from '../../my_modules/emitter'
 import { pages, NavEmitter } from '../navigator/nav_emitter'
 import { THEME } from '../theme'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import Feather from 'react-native-vector-icons/Feather'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 export function Footer() {
   const [home, setHome] = useState<pages>()

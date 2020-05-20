@@ -68,7 +68,6 @@ export function TextInput(props: {
 
 const Wrapper = styled.View`
   width: 100%;
-  padding: 0px 16px;
   height: 44px;
   justify-content: center;
   /* align-items: center; */

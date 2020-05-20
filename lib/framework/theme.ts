@@ -5,11 +5,10 @@ class _THEME {
 
   colors: { [key: string]: string } = {
     background: '#33372F',
-    backgroundTransparent: '#8033372F',
     component: '#4F554E',
     line: '#4F554E',
     fade: '#4F554E',
-    dark: '#2e2d2c',
+    dark: '#2F342F',
     text: '#E6E4E6',
     icon: '#E6E4E6',
     red: '#ED6A5A',

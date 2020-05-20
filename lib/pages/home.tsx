@@ -7,10 +7,10 @@ import { pages, NavEmitter } from '../framework/navigator/nav_emitter'
 import { TouchableWithoutFeedback } from 'react-native'
 import { nanoid } from 'nanoid/non-secure'
 import { Spacer } from '../components/base/spacer'
-import { MaterialIcons } from '@expo/vector-icons'
-import { FontAwesome5 } from '@expo/vector-icons'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { Entypo } from '@expo/vector-icons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Entypo from 'react-native-vector-icons/Entypo'
 import { FooterEmitter } from '../framework/footer/footer_emitter'
 
 const data: Array<{
@@ -33,7 +33,7 @@ const data: Array<{
   },
   {
     text: 'TS Gradebooks',
-    page: 'Gradebooks',
+    page: 'Evals',
     icon: <FontAwesome5 name="book-dead" size={64} color={THEME.colors.icon} />,
     status: true,
   },
