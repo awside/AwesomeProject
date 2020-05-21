@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components/native'
 import { HeaderEmitter } from '../../framework/header/header_emitter'
 import { Spacer } from '../../components/base/spacer'
@@ -14,23 +14,20 @@ import { PickerEmitter } from '../../framework/picker/picker_emitter'
 
 export const AddEval = () => {
   const [chooseStudent, setChooseStudent] = useState('Student')
+  const evalID = useRef('')
 
-  const eval_: IEval = {
-    id: nanoid(),
-    studID: '',
-    date: '',
-    mission: '',
-    position: '',
-  }
+  useEffect(() => {
+    HeaderEmitter.set('New Eval')
+    FooterEmitter.cancel(() => {
+      evalData.removeEval(evalID.current)
+      NavEmitter.goto('Evals')
+    })
+    FooterEmitter.confirm(() => {
+      NavEmitter.goto('Evals')
+    })
 
-  HeaderEmitter.set('New Eval')
-  FooterEmitter.cancel(() => {
-    NavEmitter.goto('Evals')
-  })
-  FooterEmitter.confirm(() => {
-    evalData.addEval(eval_)
-    NavEmitter.goto('Evals')
-  })
+    evalID.current = evalData.newEval()
+  }, [])
 
   const data: Array<{
     placeholder: string
@@ -39,19 +36,19 @@ export const AddEval = () => {
     {
       placeholder: 'Mission',
       onChange: (v) => {
-        eval_.mission = v
+        evalData.getEvalByID(evalID.current).mission = v
       },
     },
     {
       placeholder: 'Position',
       onChange: (v) => {
-        eval_.position = v
+        evalData.getEvalByID(evalID.current).position = v
       },
     },
     {
       placeholder: 'Date',
       onChange: (v) => {
-        eval_.date = v
+        evalData.getEvalByID(evalID.current).date = v
       },
     },
   ]
@@ -84,16 +81,19 @@ export const AddEval = () => {
                 <PickerItem
                   key={nanoid()}
                   student={s}
-                  onPress={(studentName: string) => {
-                    setChooseStudent(studentName)
+                  evalID={evalID.current}
+                  onPress={(student: IStudent) => {
+                    setChooseStudent(
+                      `${student.rank} ${student.lastName}, ${student.firstName}`
+                    )
                   }}
                 />
               )
-              a.push(<SeperatorLine />)
+              a.push(<SeperatorLine key={nanoid()} />)
             })
             a.pop()
           } else {
-            a.push(<PickerItemNone />)
+            a.push(<PickerItemNone key={nanoid()} />)
           }
           PickerEmitter.on('Student', a)
         }}
@@ -137,15 +137,15 @@ const Item = (props: {
 
 const PickerItem = (props: {
   student: IStudent
-  onPress: (studentName: string) => void
+  evalID: string
+  onPress: (student: IStudent) => void
 }) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
+        evalData.getEvalByID(props.evalID).studID = props.student.id
         PickerEmitter.off()
-        props.onPress(
-          `${props.student.rank} ${props.student.lastName}, ${props.student.firstName}`
-        )
+        props.onPress(props.student)
       }}
     >
       <PickerWrapper>

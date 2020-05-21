@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native'
 import { emitter } from '../my_modules/emitter'
+import { nanoid } from 'nanoid/non-secure'
 
 export interface IEval {
   id: string
@@ -29,29 +30,45 @@ class EvalData {
     return this.getEvalByID(this.currentEvalID ?? '')
   }
 
-  getEvalByOrder(studNum: number): IEval {
-    return this.evalData[studNum]
+  getEvalByOrder(evalNum: number): IEval {
+    return this.evalData[evalNum]
   }
 
-  getEvalByID(studID: string): IEval {
+  getEvalByID(evalID: string): IEval {
     for (let i = 0; i < this.numOfEvals; i++) {
-      if (studID == this.getEvalByOrder(i).id) {
+      if (evalID == this.getEvalByOrder(i).id) {
         return this.getEvalByOrder(i)
       }
     }
     return { id: '', studID: '', date: '', mission: '', position: '' }
   }
 
-  addEval(student: IEval) {
-    this.evalData.push(student)
+  newEval() {
+    let id = nanoid()
+    this.addEval({ id: id, studID: '', date: '', mission: '', position: '' })
+    return id
   }
 
-  removeEval(studID: string) {
-    let evalToBeRemoved = this.getEvalByID(studID)
+  addEval(eval_: IEval) {
+    this.evalData.push(eval_)
+  }
+
+  removeEval(evalID: string) {
+    let evalToBeRemoved = this.getEvalByID(evalID)
     let a: Array<IEval> = []
-    this.evalData.forEach((s) => {
-      if (s != evalToBeRemoved) {
-        a.push(s)
+    this.evalData.forEach((e) => {
+      if (e != evalToBeRemoved) {
+        a.push(e)
+      }
+    })
+    this.evalData = a
+  }
+
+  removeAllEvalsWith(studID: string) {
+    let a: Array<IEval> = []
+    this.evalData.forEach((e) => {
+      if (e.studID != studID) {
+        a.push(e)
       }
     })
     this.evalData = a
@@ -89,13 +106,13 @@ export interface IGradebook {
   sections: Array<ISection>
 }
 
-interface ISection {
+export interface ISection {
   title: string
   grade?: grade
   tasks: Array<ITask>
 }
 
-interface ITask {
+export interface ITask {
   title: string
   grade?: grade
   critical?: boolean

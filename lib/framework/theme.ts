@@ -11,8 +11,8 @@ class _THEME {
     dark: '#2F342F',
     text: '#E6E4E6',
     icon: '#E6E4E6',
-    red: '#ED6A5A',
-    green: '#20BF55',
+    red: '#ad3d34',
+    green: '#578052',
     blue: '#227C9D',
     highlight: '#F2D9A4',
   }

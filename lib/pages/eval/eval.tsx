@@ -6,11 +6,10 @@ import { nanoid } from 'nanoid/non-secure'
 import ScrollData from '../../components/unique/scrolldata'
 import { THEME } from '../../framework/theme'
 import { FooterEmitter } from '../../framework/footer/footer_emitter'
-import { NavEmitter } from '../../framework/navigator/nav_emitter'
-import { studentData } from '../../data/student_data'
 import { getWarno } from '../../data/gradebooks/warno'
-import { IGradebook, grade } from '../../data/eval_data'
+import { IGradebook, grade, ITask, ISection } from '../../data/eval_data'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { TouchableWithoutFeedback } from 'react-native'
 
 export const Eval = () => {
   FooterEmitter.home(true)
@@ -22,17 +21,7 @@ export const Eval = () => {
 
   let content: Array<JSX.Element> = []
   gb.sections.forEach((section) => {
-    let taskContent: Array<JSX.Element> = []
-    section.tasks.forEach((task) => {
-      taskContent.push(
-        <TaskWrapper key={nanoid()}>
-          <THEME.text.body>{task.title}</THEME.text.body>
-        </TaskWrapper>
-      )
-    })
-    content.push(
-      <Section key={nanoid()} title={section.title} content={taskContent} />
-    )
+    content.push(<Section key={nanoid()} section={section} />)
     content.push(<Spacer key={nanoid()} vertical={20} />)
   })
   content.pop()
@@ -41,58 +30,161 @@ export const Eval = () => {
 
 const Wrapper = styled.View``
 
-const Section = (props: { title: string; content: Array<JSX.Element> }) => {
+const Section = (props: { section: ISection }) => {
+  const [color, setColor] = useState(THEME.colors.line)
+  const [grade, setGrade] = useState<grade>('n/a')
+
+  let updateColor = () => {
+    switch (props.section.grade) {
+      case 'n/a':
+        setColor(THEME.colors.line)
+        break
+      case 'go':
+        setColor(THEME.colors.green)
+        break
+      case 'nogo':
+        setColor(THEME.colors.red)
+        break
+      default:
+        setColor(THEME.colors.line)
+        break
+    }
+  }
+
+  let stepGrade = () => {
+    switch (props.section.grade) {
+      case 'n/a':
+        props.section.grade = 'go'
+        break
+      case 'go':
+        props.section.grade = 'nogo'
+        break
+      case 'nogo':
+        props.section.grade = 'n/a'
+        break
+      default:
+        props.section.grade = 'go'
+        break
+    }
+    updateColor()
+    setGrade(props.section.grade)
+  }
+
+  useEffect(() => {
+    updateColor()
+  }, [])
+
+  let taskContent: Array<JSX.Element> = []
+  props.section.tasks.forEach((task: ITask) => {
+    taskContent.push(<Task key={nanoid()} task={task} />)
+  })
+
   return (
-    <SectionWrapper>
-      <SectionTitleRow>
-        <SectionTitleLeft></SectionTitleLeft>
-        <SectionTitleMiddle>
-          <THEME.text.h2 style={{}}>{props.title}</THEME.text.h2>
-        </SectionTitleMiddle>
-        <SectionTitleRight>
-          <CheckBox grade="n/a" />
-        </SectionTitleRight>
-      </SectionTitleRow>
-      {props.content}
-    </SectionWrapper>
+    <SectionStyle.Wrapper style={{ borderColor: color }}>
+      <TouchableWithoutFeedback onPress={stepGrade}>
+        <SectionStyle.TitleRow>
+          <SectionStyle.TitleLeft></SectionStyle.TitleLeft>
+          <SectionStyle.TitleMiddle>
+            <THEME.text.h2 style={{}}>{props.section.title}</THEME.text.h2>
+          </SectionStyle.TitleMiddle>
+          <SectionStyle.TitleRight>
+            <CheckBox grade={grade} />
+          </SectionStyle.TitleRight>
+        </SectionStyle.TitleRow>
+      </TouchableWithoutFeedback>
+      {taskContent}
+    </SectionStyle.Wrapper>
   )
 }
 
-const SectionWrapper = styled.View`
-  width: 100%;
-  border-radius: 8px;
-  border: 8px solid ${THEME.colors.green};
-`
+const SectionStyle = {
+  Wrapper: styled.View`
+    width: 100%;
+    border-radius: 8px;
+    border-width: 8px;
+    border-style: solid;
+  `,
+  TitleRow: styled.View`
+    width: 100%;
+    height: 50px;
+    flex-direction: row;
+    background-color: ${THEME.colors.component};
+    justify-content: center;
+    align-items: center;
+  `,
+  TitleLeft: styled.View`
+    flex: 1;
+  `,
 
-const SectionTitleRow = styled.View`
-  width: 100%;
-  height: 50px;
-  flex-direction: row;
-  background-color: ${THEME.colors.component};
-  justify-content: center;
-  align-items: center;
-`
+  TitleMiddle: styled.View`
+    flex: 4;
+    justify-content: center;
+    align-items: center;
+  `,
 
-const SectionTitleLeft = styled.View`
-  flex: 1;
-`
+  TitleRight: styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+  `,
+}
 
-const SectionTitleMiddle = styled.View`
-  flex: 4;
-  justify-content: center;
-  align-items: center;
-`
+const Task = (props: { task: ITask }) => {
+  const [color, setColor] = useState('')
 
-const SectionTitleRight = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`
+  let updateColor = () => {
+    switch (props.task.grade) {
+      case 'n/a':
+        setColor('')
+        break
+      case 'go':
+        setColor(THEME.colors.green)
+        break
+      case 'nogo':
+        setColor(THEME.colors.red)
+        break
+      default:
+        setColor('')
+        break
+    }
+  }
+
+  let stepGrade = () => {
+    switch (props.task.grade) {
+      case 'n/a':
+        props.task.grade = 'go'
+        break
+      case 'go':
+        props.task.grade = 'nogo'
+        break
+      case 'nogo':
+        props.task.grade = 'n/a'
+        break
+      default:
+        props.task.grade = 'go'
+        break
+    }
+    updateColor()
+  }
+
+  useEffect(() => {
+    updateColor()
+  }, [])
+
+  return (
+    <TouchableWithoutFeedback onPress={stepGrade}>
+      <TaskWrapper key={nanoid()} style={{ backgroundColor: color }}>
+        <THEME.text.body>{props.task.title}</THEME.text.body>
+      </TaskWrapper>
+    </TouchableWithoutFeedback>
+  )
+}
 
 const TaskWrapper = styled.View`
   width: 100%;
   padding: 20px;
 `
+
 const CheckBox = (props: { grade: grade }) => {
   let name: string
   let color: string

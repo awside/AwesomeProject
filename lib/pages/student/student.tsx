@@ -8,6 +8,7 @@ import { THEME } from '../../framework/theme'
 import { FooterEmitter } from '../../framework/footer/footer_emitter'
 import { NavEmitter } from '../../framework/navigator/nav_emitter'
 import { studentData } from '../../data/student_data'
+import { evalData } from '../../data/eval_data'
 
 export const Student = () => {
   let student = studentData.getCurrentStudent()
@@ -15,6 +16,7 @@ export const Student = () => {
   HeaderEmitter.set(`Student Profile`)
   FooterEmitter.trash(() => {
     studentData.removeStudent(student.id)
+    evalData.removeAllEvalsWith(student.id)
     NavEmitter.goto('Students')
   })
   FooterEmitter.edit(() => {

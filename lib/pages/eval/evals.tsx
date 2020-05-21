@@ -26,7 +26,7 @@ export const Evals = () => {
     let s = studentData.getStudentByID(e.studID)
     content.push(
       <Item
-        id={s.id}
+        id={e.id}
         studentText={`${s.rank} ${s.lastName}, ${s.firstName}`}
         missionText={`${e.mission}`}
         positionText={`${e.position}`}
