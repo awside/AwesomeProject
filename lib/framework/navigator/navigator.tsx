@@ -20,6 +20,7 @@ import { Picker } from '../picker/picker'
 import { Eval } from '../../pages/eval/eval'
 import { EditEval } from '../../pages/eval/edit_eval'
 import { Gradebook } from '../../pages/eval/gradebook'
+import { HeaderEmitter } from '../header/header_emitter'
 
 const pageList: Array<{
   name: pages
@@ -74,6 +75,7 @@ export const Navigator = () => {
     emitter.on('@Nav_goto', (page: pages) => {
       for (let i = 0; i < pageList.length; i++) {
         if (pageList[i].name == page) {
+          HeaderEmitter.clear()
           FooterEmitter.clear()
           setPage(pageList[i].page)
           return

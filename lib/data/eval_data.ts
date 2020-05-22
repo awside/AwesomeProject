@@ -75,6 +75,38 @@ class EvalData {
     this.evalData = a
   }
 
+  updateGradebookGrade = (gradebook: IGradebook) => {
+    let go = 0
+    let nogo = 0
+    gradebook.sections.forEach((section) => {
+      switch (section.grade) {
+        case 'go':
+          go++
+          break
+        case 'nogo':
+          nogo++
+          break
+      }
+    })
+    gradebook.grade = 1 - nogo / go >= 0.7 ? 'nogo' : 'go'
+  }
+
+  updateEvalGrade = (eval_: IEval) => {
+    let go = 0
+    let nogo = 0
+    eval_.gradebooks.forEach((gb) => {
+      switch (gb.grade) {
+        case 'go':
+          go += (1 + (1 * +gb.worthDouble))
+          break
+        case 'nogo':
+          nogo += (1 + (1 * +gb.worthDouble))
+          break
+      }
+    })
+    eval_.grade = 1 - nogo / go >= 0.7 ? 'nogo' : 'go'
+  }
+
   store = async () => {
     // try {
     //   await AsyncStorage.setItem(
@@ -106,6 +138,7 @@ export interface IEval {
   date: string
   mission: string
   position: string
+  grade?: grade
   gradebooks: Array<IGradebook>
 }
 
@@ -114,6 +147,7 @@ export type grade = 'go' | 'nogo' | 'n/a'
 export interface IGradebook {
   title: string
   grade?: grade
+  worthDouble: boolean
   sections: Array<ISection>
 }
 

@@ -2,6 +2,7 @@ import { IGradebook } from '../eval_data'
 
 export const warno: IGradebook = {
   title: 'WARNO',
+  worthDouble: false,
   sections: [
     {
       title: 'Situation',
