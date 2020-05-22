@@ -77,9 +77,9 @@ const Styles = {
   Item: styled.View`
     justify-content: center;
     padding: 20px;
-    border: 2px solid ${THEME.colors.dark};
     background-color: ${THEME.colors.component};
     border-radius: 8px;
+    border: 2px solid ${THEME.colors.dark};
   `,
   SeperatorWrapper: styled.View`
     width: 100%;

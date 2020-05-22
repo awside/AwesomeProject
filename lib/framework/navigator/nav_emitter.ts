@@ -10,6 +10,7 @@ export type pages =
   | 'Eval'
   | 'AddEval'
   | 'EditEval'
+  | 'Gradebook'
 
 class Nav_Emitter {
   goto = (page: pages) => {

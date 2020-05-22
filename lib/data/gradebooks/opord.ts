@@ -1,7 +1,7 @@
 import { IGradebook } from '../eval_data'
 
-export const warno: IGradebook = {
-  title: 'WARNO',
+export const opord: IGradebook = {
+  title: 'OPORD',
   sections: [
     {
       title: 'Situation',

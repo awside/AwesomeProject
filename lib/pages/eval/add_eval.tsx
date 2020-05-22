@@ -36,19 +36,28 @@ export const AddEval = () => {
     {
       placeholder: 'Mission',
       onChange: (v) => {
-        evalData.getEvalByID(evalID.current).mission = v
+        let e = evalData.getEvalByID(evalID.current)
+        if (e) {
+          e.mission = v
+        }
       },
     },
     {
       placeholder: 'Position',
       onChange: (v) => {
-        evalData.getEvalByID(evalID.current).position = v
+        let e = evalData.getEvalByID(evalID.current)
+        if (e) {
+          e.position = v
+        }
       },
     },
     {
       placeholder: 'Date',
       onChange: (v) => {
-        evalData.getEvalByID(evalID.current).date = v
+        let e = evalData.getEvalByID(evalID.current)
+        if (e) {
+          e.date = v
+        }
       },
     },
   ]
@@ -143,7 +152,10 @@ const PickerItem = (props: {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        evalData.getEvalByID(props.evalID).studID = props.student.id
+        let e = evalData.getEvalByID(props.evalID)
+        if (e) {
+          e.studID = props.student.id
+        }
         PickerEmitter.off()
         props.onPress(props.student)
       }}

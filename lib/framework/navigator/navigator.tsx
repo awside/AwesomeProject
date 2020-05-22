@@ -19,6 +19,7 @@ import { AddEval } from '../../pages/eval/add_eval'
 import { Picker } from '../picker/picker'
 import { Eval } from '../../pages/eval/eval'
 import { EditEval } from '../../pages/eval/edit_eval'
+import { Gradebook } from '../../pages/eval/gradebook'
 
 const pageList: Array<{
   name: pages
@@ -59,6 +60,10 @@ const pageList: Array<{
   {
     name: 'EditEval',
     page: <EditEval />,
+  },
+  {
+    name: 'Gradebook',
+    page: <Gradebook />,
   },
 ]
 

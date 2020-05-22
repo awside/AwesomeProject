@@ -1,17 +1,11 @@
 import { AsyncStorage } from 'react-native'
 import { emitter } from '../my_modules/emitter'
 import { nanoid } from 'nanoid/non-secure'
-
-export interface IEval {
-  id: string
-  studID: string
-  date: string
-  mission: string
-  position: string
-}
+import { getGradebookData } from './gradebooks/gradebook_data'
 
 class EvalData {
   currentEvalID?: string
+  currentGradebook?: IGradebook
   evalData: Array<IEval> = [
     {
       id: '2asdfagasdewq',
@@ -19,6 +13,7 @@ class EvalData {
       date: '1 May 2020',
       mission: 'Ambush',
       position: 'BTL',
+      gradebooks: getGradebookData(),
     },
   ]
 
@@ -26,7 +21,7 @@ class EvalData {
     return this.evalData.length
   }
 
-  getCurrentEval(): IEval {
+  getCurrentEval() {
     return this.getEvalByID(this.currentEvalID ?? '')
   }
 
@@ -34,18 +29,24 @@ class EvalData {
     return this.evalData[evalNum]
   }
 
-  getEvalByID(evalID: string): IEval {
+  getEvalByID(evalID: string) {
     for (let i = 0; i < this.numOfEvals; i++) {
       if (evalID == this.getEvalByOrder(i).id) {
         return this.getEvalByOrder(i)
       }
     }
-    return { id: '', studID: '', date: '', mission: '', position: '' }
   }
 
   newEval() {
     let id = nanoid()
-    this.addEval({ id: id, studID: '', date: '', mission: '', position: '' })
+    this.addEval({
+      id: id,
+      studID: '',
+      date: '',
+      mission: '',
+      position: '',
+      gradebooks: getGradebookData(),
+    })
     return id
   }
 
@@ -99,10 +100,20 @@ class EvalData {
 }
 export const evalData = new EvalData()
 
+export interface IEval {
+  id: string
+  studID: string
+  date: string
+  mission: string
+  position: string
+  gradebooks: Array<IGradebook>
+}
+
 export type grade = 'go' | 'nogo' | 'n/a'
 
 export interface IGradebook {
   title: string
+  grade?: grade
   sections: Array<ISection>
 }
 
