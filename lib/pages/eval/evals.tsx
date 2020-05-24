@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/native'
 import ScrollData from '../../components/unique/scrolldata'
 import { HeaderEmitter } from '../../framework/header/header_emitter'
@@ -8,7 +8,7 @@ import { TouchableWithoutFeedback } from 'react-native'
 import { nanoid } from 'nanoid/non-secure'
 import { Spacer } from '../../components/base/spacer'
 import { FooterEmitter } from '../../framework/footer/footer_emitter'
-import { evalData } from '../../data/eval_data'
+import { evalData, IEval } from '../../data/eval_data'
 import { studentData } from '../../data/student_data'
 
 export const Evals = () => {
@@ -19,21 +19,13 @@ export const Evals = () => {
     NavEmitter.goto('AddEval')
   })
 
+
+
   let content: Array<JSX.Element> = []
   content.push()
   for (let i = 0; i < evalData.numOfEvals; i++) {
-    let e = evalData.getEvalByOrder(i)
-    let s = studentData.getStudentByID(e.studID)
-    content.push(
-      <Item
-        id={e.id}
-        studentText={`${s.rank} ${s.lastName}, ${s.firstName}`}
-        missionText={`${e.mission}`}
-        positionText={`${e.position}`}
-        dateText={`${e.date}`}
-        key={nanoid()}
-      />
-    )
+    evalData.updateEvalGrade(evalData.getEvalByOrder(i))
+    content.push(<Item key={nanoid()} eval={evalData.getEvalByOrder(i)} />)
     content.push(<Spacer vertical={5} key={nanoid()} />)
   }
   content.pop()
@@ -41,32 +33,45 @@ export const Evals = () => {
   return <ScrollData content={content} />
 }
 
-const Item = (props: {
-  id: string
-  studentText: string
-  missionText: string
-  positionText: string
-  dateText: string
-}) => {
+const Item = (props: { eval: IEval }) => {
+  const [data, setData] = useState<{
+    name: string
+    mission: string
+    position: string
+    date: string
+    color: string
+  }>({ name: '', mission: '', position: '', date: '', color: '' })
+
+  useEffect(() => {
+    let student = studentData.getStudentByID(props.eval.studID)
+    setData({
+      name: `${student.rank} ${student.lastName}, ${student.firstName}`,
+      mission: `${props.eval.mission}`,
+      position: `${props.eval.position}`,
+      date: `${props.eval.date}`,
+      color: `${evalData.evalGradeColor(props.eval.grade ?? 'n/a')}`
+    })
+  }, [])
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        evalData.currentEvalID = props.id
+        evalData.currentEvalID = props.eval.id
         NavEmitter.goto('Eval')
       }}
     >
-      <Styles.Item>
+      <Styles.Item style={{borderColor: data.color}}>
         <THEME.text.body style={{ color: THEME.colors.text }}>
-          {props.studentText}
+          {data.name}
         </THEME.text.body>
         <THEME.text.body style={{ color: THEME.colors.text }}>
-          {props.missionText}
+          {data.mission}
         </THEME.text.body>
         <THEME.text.body style={{ color: THEME.colors.text }}>
-          {props.positionText}
+          {data.position}
         </THEME.text.body>
         <THEME.text.body style={{ color: THEME.colors.text }}>
-          {props.dateText}
+          {data.date}
         </THEME.text.body>
       </Styles.Item>
     </TouchableWithoutFeedback>
@@ -79,7 +84,7 @@ const Styles = {
     padding: 20px;
     background-color: ${THEME.colors.component};
     border-radius: 8px;
-    border: 2px solid ${THEME.colors.dark};
+    border: 4px solid;
   `,
   SeperatorWrapper: styled.View`
     width: 100%;

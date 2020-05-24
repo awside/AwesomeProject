@@ -2,6 +2,7 @@ import { AsyncStorage } from 'react-native'
 import { emitter } from '../my_modules/emitter'
 import { nanoid } from 'nanoid/non-secure'
 import { getGradebookData } from './gradebooks/gradebook_data'
+import { THEME } from '../framework/theme'
 
 class EvalData {
   currentEvalID?: string
@@ -126,6 +127,20 @@ class EvalData {
       eval_.grade = 'nogo'
     } else {
       eval_.grade = nogo / total >= 0.3 ? 'nogo' : 'go'
+    }
+  }
+
+  evalGradeColor(grade: grade) {
+    switch (grade) {
+      case 'go':
+      return THEME.colors.green
+      break
+    case 'nogo':
+      return THEME.colors.red
+      break
+    default:
+      return THEME.colors.dark
+      break
     }
   }
 

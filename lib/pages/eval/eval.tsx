@@ -42,18 +42,7 @@ export const Eval = () => {
 const Wrapper = styled.View``
 
 const GradebookItem = (props: { gradebook: IGradebook }) => {
-  let color: string
-  switch (props.gradebook.grade) {
-    case 'go':
-      color = THEME.colors.green
-      break
-    case 'nogo':
-      color = THEME.colors.red
-      break
-    default:
-      color = THEME.colors.dark
-      break
-  }
+  let color = evalData.evalGradeColor(props.gradebook.grade ?? 'n/a')
 
   return (
     <TouchableWithoutFeedback

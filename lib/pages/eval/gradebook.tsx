@@ -13,14 +13,6 @@ import { TouchableWithoutFeedback } from 'react-native'
 export const Gradebook = () => {
   const [content, setContent] = useState<Array<JSX.Element>>()
 
-  const updateGradeColor = () => {
-    let gb = evalData.currentGradebook
-    if (gb) {
-      evalData.updateGradebookGrade(gb)
-      HeaderEmitter.grade(gb.grade ?? 'n/a')
-    }
-  }
-
   useEffect(() => {
     HeaderEmitter.set(`CPT Conner -- ${evalData.currentGradebook?.title}`)
     FooterEmitter.home(true)
@@ -28,7 +20,7 @@ export const Gradebook = () => {
 
     let a: Array<JSX.Element> = []
     evalData.currentGradebook?.sections.forEach((section) => {
-      a.push(<Section key={nanoid()} section={section} updateGradeColor={() => {updateGradeColor()}} />)
+      a.push(<Section key={nanoid()} section={section} />)
       a.push(<Spacer key={nanoid()} vertical={20} />)
     })
     a.pop()
@@ -40,7 +32,7 @@ export const Gradebook = () => {
 
 const Wrapper = styled.View``
 
-const Section = (props: { section: ISection, updateGradeColor: () => void }) => {
+const Section = (props: { section: ISection }) => {
   const [color, setColor] = useState(THEME.colors.line)
   const [grade, setGrade] = useState<grade>('n/a')
 
@@ -82,6 +74,8 @@ const Section = (props: { section: ISection, updateGradeColor: () => void }) => 
 
   useEffect(() => {
     updateColor()
+    setGrade(props.section.grade ?? 'n/a')
+    HeaderEmitter.grade(props.section.grade ?? 'n/a')
   }, [])
 
   let taskContent: Array<JSX.Element> = []
@@ -91,10 +85,16 @@ const Section = (props: { section: ISection, updateGradeColor: () => void }) => 
 
   return (
     <SectionStyle.Wrapper style={{ borderColor: color }}>
-      <TouchableWithoutFeedback onPress={() => {
-        stepGrade()
-        props.updateGradeColor()
-      }}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          stepGrade()
+          let gb = evalData.currentGradebook
+          if (gb) {
+            evalData.updateGradebookGrade(gb)
+            HeaderEmitter.grade(gb.grade ?? 'n/a')
+          }
+        }}
+      >
         <SectionStyle.TitleRow>
           <SectionStyle.TitleLeft></SectionStyle.TitleLeft>
           <SectionStyle.TitleMiddle>
