@@ -12,7 +12,7 @@ import { evalData } from '../../data/eval_data'
 import { studentData } from '../../data/student_data'
 
 export const Evals = () => {
-  HeaderEmitter.set('TS Gradebooks')
+  HeaderEmitter.set('Evals')
   FooterEmitter.home(true)
   FooterEmitter.back('Home')
   FooterEmitter.addEval(() => {

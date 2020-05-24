@@ -21,13 +21,19 @@ export const Eval = () => {
     FooterEmitter.trash(() => {})
     FooterEmitter.edit(() => {})
 
-    let a: Array<JSX.Element> = []
-    evalData.getCurrentEval()?.gradebooks.forEach((gb) => {
-      a.push(<GradebookItem key={nanoid()} gradebook={gb} />)
-      a.push(<Spacer key={nanoid()} vertical={5} />)
-    })
-    a.pop()
-    setContent(a)
+    let eval_ = evalData.getCurrentEval()
+    if (eval_) {
+      evalData.updateEvalGrade(eval_)
+      HeaderEmitter.grade(eval_.grade ?? 'n/a')
+
+      let a: Array<JSX.Element> = []
+      eval_.gradebooks.forEach((gb) => {
+        a.push(<GradebookItem key={nanoid()} gradebook={gb} />)
+        a.push(<Spacer key={nanoid()} vertical={5} />)
+      })
+      a.pop()
+      setContent(a)
+    }
   }, [])
 
   return <ScrollData content={[<Wrapper key={nanoid()}>{content}</Wrapper>]} />
@@ -36,12 +42,27 @@ export const Eval = () => {
 const Wrapper = styled.View``
 
 const GradebookItem = (props: { gradebook: IGradebook }) => {
+  let color: string
+  switch (props.gradebook.grade) {
+    case 'go':
+      color = THEME.colors.green
+      break
+    case 'nogo':
+      color = THEME.colors.red
+      break
+    default:
+      color = THEME.colors.dark
+      break
+  }
+
   return (
-    <TouchableWithoutFeedback onPress={() => {
-      evalData.currentGradebook = props.gradebook
-      NavEmitter.goto('Gradebook')
-    }}>
-      <TaskWrapper>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        evalData.currentGradebook = props.gradebook
+        NavEmitter.goto('Gradebook')
+      }}
+    >
+      <TaskWrapper style={{ borderColor: color }}>
         <THEME.text.body>{props.gradebook.title}</THEME.text.body>
       </TaskWrapper>
     </TouchableWithoutFeedback>
@@ -53,7 +74,7 @@ const TaskWrapper = styled.View`
   padding: 20px;
   background-color: ${THEME.colors.component};
   border-radius: 8px;
-  border: 2px solid ${THEME.colors.dark};
+  border: 4px solid ${THEME.colors.dark};
 `
 
 const CheckBox = (props: { grade: grade }) => {

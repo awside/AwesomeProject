@@ -78,33 +78,55 @@ class EvalData {
   updateGradebookGrade = (gradebook: IGradebook) => {
     let go = 0
     let nogo = 0
+    let total = 0
     gradebook.sections.forEach((section) => {
       switch (section.grade) {
         case 'go':
           go++
+          total++
           break
         case 'nogo':
           nogo++
+          total++
           break
       }
     })
-    gradebook.grade = 1 - nogo / go >= 0.7 ? 'nogo' : 'go'
+    if (nogo == 0 && go == 0) {
+      gradebook.grade = 'n/a'
+    } else if (nogo == 0 && go > 0) {
+      gradebook.grade = 'go'
+    } else if (nogo > 0 && go == 0) {
+      gradebook.grade = 'nogo'
+    } else {
+      gradebook.grade = nogo / total >= 0.3 ? 'nogo' : 'go'
+    }
   }
 
   updateEvalGrade = (eval_: IEval) => {
     let go = 0
     let nogo = 0
+    let total = 0
     eval_.gradebooks.forEach((gb) => {
       switch (gb.grade) {
         case 'go':
-          go += (1 + (1 * +gb.worthDouble))
+          go += 1 + 1 * +gb.worthDouble
+          total += 1 + 1 * +gb.worthDouble
           break
         case 'nogo':
-          nogo += (1 + (1 * +gb.worthDouble))
+          nogo += 1 + 1 * +gb.worthDouble
+          total += 1 + 1 * +gb.worthDouble
           break
       }
     })
-    eval_.grade = 1 - nogo / go >= 0.7 ? 'nogo' : 'go'
+    if (nogo == 0 && go == 0) {
+      eval_.grade = 'n/a'
+    } else if (nogo == 0 && go > 0) {
+      eval_.grade = 'go'
+    } else if (nogo > 0 && go == 0) {
+      eval_.grade = 'nogo'
+    } else {
+      eval_.grade = nogo / total >= 0.3 ? 'nogo' : 'go'
+    }
   }
 
   store = async () => {

@@ -13,6 +13,14 @@ import { TouchableWithoutFeedback } from 'react-native'
 export const Gradebook = () => {
   const [content, setContent] = useState<Array<JSX.Element>>()
 
+  const updateGradeColor = () => {
+    let gb = evalData.currentGradebook
+    if (gb) {
+      evalData.updateGradebookGrade(gb)
+      HeaderEmitter.grade(gb.grade ?? 'n/a')
+    }
+  }
+
   useEffect(() => {
     HeaderEmitter.set(`CPT Conner -- ${evalData.currentGradebook?.title}`)
     FooterEmitter.home(true)
@@ -20,7 +28,7 @@ export const Gradebook = () => {
 
     let a: Array<JSX.Element> = []
     evalData.currentGradebook?.sections.forEach((section) => {
-      a.push(<Section key={nanoid()} section={section} />)
+      a.push(<Section key={nanoid()} section={section} updateGradeColor={() => {updateGradeColor()}} />)
       a.push(<Spacer key={nanoid()} vertical={20} />)
     })
     a.pop()
@@ -32,7 +40,7 @@ export const Gradebook = () => {
 
 const Wrapper = styled.View``
 
-const Section = (props: { section: ISection }) => {
+const Section = (props: { section: ISection, updateGradeColor: () => void }) => {
   const [color, setColor] = useState(THEME.colors.line)
   const [grade, setGrade] = useState<grade>('n/a')
 
@@ -83,7 +91,10 @@ const Section = (props: { section: ISection }) => {
 
   return (
     <SectionStyle.Wrapper style={{ borderColor: color }}>
-      <TouchableWithoutFeedback onPress={stepGrade}>
+      <TouchableWithoutFeedback onPress={() => {
+        stepGrade()
+        props.updateGradeColor()
+      }}>
         <SectionStyle.TitleRow>
           <SectionStyle.TitleLeft></SectionStyle.TitleLeft>
           <SectionStyle.TitleMiddle>
